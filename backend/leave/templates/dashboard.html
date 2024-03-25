@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .approved {
+            color: green;
+            font-weight: bold;
+        }
+        .disapproved {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Your Dashboard</h1>
+    
+    {% if user.is_authenticated %}
+        <p>Hello, {{ user.name }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Role: {{ user.role }}</p>
+
+        <!-- Apply for Leave Form -->
+        <h2>Apply for Leave</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="leave_category">Leave Category:</label>
+            <select id="leave_category" name="leave_category">
+                {% for category in leave_categories %}
+                    <option value="{{ category.leave_category.id }}">{{ category.leave_category.leave_type }}</option>
+                {% endfor %}
+            </select><br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
+            <label for="from_date">From Date:</label>
+            <input type="date" id="from_date" name="from_date"><br>
+            <label for="to_date">To Date:</label>
+            <input type="date" id="to_date" name="to_date"><br>
+            <button type="submit">Submit</button>
+        </form>
+
+        <!-- Leaves Information -->
+        <h2>Leave Information</h2>
+
+        <!-- Past Leaves -->
+        <h3>Past Leaves</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in past_leaves %}
+                <tr>
+                    <td>{{ leave.from_date }}</td>
+                    <td>{{ leave.to_date }}</td>
+                    <td class="{% if leave.approved %}approved{% else %}disapproved{% endif %}">
+                        {% if leave.approved %}
+                            Approved
+                        {% else %}
+                            Disapproved
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Non-Past Leaves -->
+        <h3>Non-Past Leaves</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in future_leaves %}
+                <tr>
+                    <td>{{ leave.from_date }}</td>
+                    <td>{{ leave.to_date }}</td>
+                    <td class="{% if leave.approved %}approved{% else %}disapproved{% endif %}">
+                        {% if leave.approved %}
+                            Approved
+                        {% else %}
+                            Disapproved
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You are not logged in. Please <a href="{% url 'login' %}">login</a>.</p>
+    {% endif %}
+</body>
+</html>

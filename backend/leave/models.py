@@ -28,7 +28,7 @@ class EmployeeLeaves(models.Model):
     
 class LeaveApplications(models.Model):
     
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, db_column = "user")
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, db_column = "user", blank=True)
     
     leave_category = models.ForeignKey(LeaveCategories, on_delete=models.SET_NULL, null=True, db_column = "leave_category")    
     description = models.TextField(blank=True)
