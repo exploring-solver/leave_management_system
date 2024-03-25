@@ -45,7 +45,14 @@ class User(AbstractUser):
     # first arguement is stored in database, second is its human readable form that will be displayed in dropdowns
     class Role(models.TextChoices):
         ADMIN = "ADMIN" , 'Admin'
-        STAFF = "STAFF" , 'Staff'
+        TEACHING_STAFF = "TEACHING_STAFF" , 'Teaching Staff'
+        NON_TEACHING_LAB_STAFF = "NON_TEACHING_LAB_STAFF" , 'Non Teaching Lab Staff'
+        NON_TEACHING_NON_LAB_STAFF = "NON_TEACHING_NON_LAB_STAFF" , 'Non Teaching Non Lab Staff'
+
+    # first arguement is stored in database, second is its human readable form that will be displayed in dropdowns
+    class Gender(models.TextChoices):
+        MALE = "MALE", 'Male'
+        FEMALE = "FEMALE", 'Female'
 
 
     # fields coming from parent class AbstractUSer that will be used as-it-is in our custom User model are :
@@ -60,7 +67,8 @@ class User(AbstractUser):
     # adding these new fields to our custom User model:
     email = models.CharField(max_length=32, unique=True, db_index=True)   #db_index is for faster queries
     name = models.CharField(max_length=50)
-    role = models.CharField(max_length=7, choices=Role.choices)
+    role = models.CharField(max_length=50, choices=Role.choices)
+    gender = models.CharField(max_length=20, choices=Gender.choices)
     
     date_of_joining = models.DateField(blank=True, null=True)
 
