@@ -9,50 +9,110 @@
 </head>
 
 <body class="bg-gray-100 p-8">
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+    {% endif %}
+
     <h1 class="text-3xl font-semibold text-center mb-8 mt-4 text-center pb-4 border-b-2 border-black">Admin Dashboard</h1>
 
     {% if user.is_authenticated and user.role == "ADMIN" %}
     <div class="flex flex-wrap gap-8">
+
+
+        <!-- Total Registered Employees Card -->
+        <div class="bg-white rounded shadow p-6 w-[90%] mx-auto lg:w-[60%]">
+            <h2 class="text-xl font-semibold mb-4">Total Registered Employees</h2>
+            <p class="text-4xl font-bold text-center">{{ total_registered_employees }}</p>
+        </div>
+
+        <!-- Listed Leave Types Card -->
+        <div class="bg-white rounded shadow p-6 w-[90%] mx-auto lg:w-[60%]">
+            <h2 class="text-xl font-semibold mb-4">Listed Leave Types</h2>
+            <p class="text-4xl font-bold text-center">{{ listed_leave_types }}</p>
+        </div>
+
+        <!-- Total Leaves Card -->
+        <div class="bg-white rounded shadow p-6 w-[90%] mx-auto lg:w-[60%]">
+            <h2 class="text-xl font-semibold mb-4">Total Leaves</h2>
+            <p class="text-4xl font-bold text-center">{{ total_leaves }}</p>
+        </div>
+
+        <!-- Approved Leaves Card -->
+        <div class="bg-white rounded shadow p-6 w-[90%] mx-auto lg:w-[60%]">
+            <h2 class="text-xl font-semibold mb-4">Approved Leaves</h2>
+            <p class="text-4xl font-bold text-center">{{ approved_leaves }}</p>
+        </div>
+
+        <!-- New Leave Applications Card -->
+        <div class="bg-white rounded shadow p-6 w-[90%] mx-auto lg:w-[60%]">
+            <h2 class="text-xl font-semibold mb-4">New Leave Applications</h2>
+            <p class="text-4xl font-bold text-center">{{ new_leave_applications }}</p>
+        </div>
+
+
+
         <!-- Create New User Section -->
         <div class="bg-white rounded shadow p-6 w-[90%] mx-auto lg:w-[60%]">
             <h2 class="text-xl font-semibold mb-4">Create New User</h2>
             <form method="post" action="/create-user/" class="space-y-4">
                 {% csrf_token %}
                 <label for="name" class="block">Name:</label>
-                <input type="text" id="name" name="name"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
-
+                <input type="text" id="name" name="name" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+            
                 <label for="email" class="block">Email:</label>
-                <input type="email" id="email" name="email"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
-
+                <input type="email" id="email" name="email" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+            
                 <label for="password" class="block">Password:</label>
-                <input type="password" id="password" name="password"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
-
+                <input type="password" id="password" name="password" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+            
                 <label for="role" class="block">Role:</label>
                 <select id="role" name="role" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2">
                     {% for role in user.Role.choices %}
                     <option value="{{ role.0 }}">{{ role.1 }}</option>
                     {% endfor %}
                 </select><br />
-
+            
                 <label for="gender" class="block">Gender:</label>
                 <select id="gender" name="gender" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2">
                     {% for gender in user.Gender.choices %}
                     <option value="{{ gender.0 }}">{{ gender.1 }}</option>
                     {% endfor %}
                 </select><br />
-
+            
+                <label for="emp_code" class="block">Employee Code:</label>
+                <input type="text" id="emp_code" name="emp_code" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+            
+                <label for="dept" class="block">Department:</label>
+                <select id="dept" name="dept" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2">
+                    {% for department in user.Department.choices %}
+                    <option value="{{ department.0 }}">{{ department.1 }}</option>
+                    {% endfor %}
+                </select><br />
+            
+                <label for="address" class="block">Address:</label>
+                <input type="text" id="address" name="address" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+            
+                <label for="city" class="block">City:</label>
+                <input type="text" id="city" name="city" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+            
+                <label for="country" class="block">Country:</label>
+                <input type="text" id="country" name="country" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+            
+                <label for="mobile_number" class="block">Mobile Number:</label>
+                <input type="text" id="mobile_number" name="mobile_number" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+            
                 <label for="date_of_joining" class="block">Date of Joining:</label>
-                <input type="date" id="date_of_joining" name="date_of_joining"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
-
+                <input type="date" id="date_of_joining" name="date_of_joining" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+            
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
                     Create User
                 </button>
-            </form>
+            </form>            
         </div>
+
 
         <!-- Existing Users Section -->
         <div class="bg-white rounded shadow p-6">
@@ -66,49 +126,48 @@
                         <th>Email</th>
                         <th>Role</th>
                         <th>Date of Joining</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="userTableBody">
                     {% for user in all_users %}
+                    {% if user.role != 'ADMIN' %}
                     <tr>
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.role }}</td>
                         <td>{{ user.date_of_joining }}</td>
+                        <td>
+                            {% if user.is_active %}
+                            <span class="text-green-500 font-semibold">ACTIVE</span>
+                            {% else %}
+                            <span class="text-red-500 font-semibold">INACTIVE</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.is_active %}
+                            <form method="post" action="{% url 'toggle_user_status' user.id 'inactive' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">Mark Inactive</button>
+                            </form>
+                            {% else %}
+                            <form method="post" action="{% url 'toggle_user_status' user.id 'active' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Mark Active</button>
+                            </form>
+                            {% endif %}
+                        </td>
                     </tr>
+                    {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+
+
+
         <div class="flex flex-wrap gap-10">
-            <!-- Leave Applications Section -->
-            <!-- <div class="bg-white rounded shadow p-6">
-                <h2 class="text-xl font-semibold mb-4">Leave Applications</h2>
-                <input type="text" id="leaveFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
-                    placeholder="Filter by User or Leave Category" />
-                <table class="w-full">
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Leave Category</th>
-                            <th>From Date</th>
-                            <th>To Date</th>
-                            <th>Approved</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leaveTableBody">
-                        {% for application in all_leave_applications %}
-                        <tr>
-                            <td>{{ application.user }}</td>
-                            <td>{{ application.leave_category }}</td>
-                            <td>{{ application.from_date }}</td>
-                            <td>{{ application.to_date }}</td>
-                            <td>{{ application.approved }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div> -->
 
             <!-- Pending Leave Applications Section -->
             <div class="bg-white rounded shadow p-6">
@@ -121,6 +180,7 @@
                             <th>From Date</th>
                             <th>To Date</th>
                             <th>Status</th>
+                            <th>Actions</th> <!-- New column for actions -->
                         </tr>
                     </thead>
                     <tbody>
@@ -131,11 +191,29 @@
                             <td>{{ application.from_date }}</td>
                             <td>{{ application.to_date }}</td>
                             <td>Pending</td>
+                            <td>
+                                <form method="post" action="{% url 'approve_leave' application.id %}">
+                                    {% csrf_token %}
+                                    <!-- Other fields -->
+                                    <label for="admin_remark">Admin Remark:</label>
+                                    <textarea id="admin_remark" name="admin_remark" rows="4" cols="50"></textarea><br />
+                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Approve Leave</button>
+                                </form>
+                                
+                                <form method="post" action="{% url 'disapprove_leave' application.id %}">
+                                    {% csrf_token %}
+                                    <!-- Other fields -->
+                                    <label for="admin_remark">Admin Remark:</label>
+                                    <textarea id="admin_remark" name="admin_remark" rows="4" cols="50"></textarea><br />
+                                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">Disapprove Leave</button>
+                                </form>                                
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
+
 
             <!-- Approved Leave Applications Section -->
             <div class="bg-white rounded shadow p-6">

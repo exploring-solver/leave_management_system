@@ -21,7 +21,7 @@ class EmployeeLeaves(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, db_column = "user")
     
     leave_category = models.ForeignKey(LeaveCategories, on_delete=models.SET_NULL, null=True, db_column = "leaves_in_category1")
-    leaves_remaining = models.IntegerField()
+    leaves_remaining = models.DecimalField(max_digits=5, decimal_places=1)
 
     
     
@@ -43,6 +43,7 @@ class LeaveApplications(models.Model):
     
     approved = models.BooleanField(default=False)
     past = models.BooleanField(default=False)
+    admin_remark = models.TextField(blank=True)
     
     which_half = models.CharField(max_length=20, choices=Half.choices, blank=True, null=True)
     

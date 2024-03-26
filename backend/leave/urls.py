@@ -10,4 +10,7 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('create-user/', views.create_user, name='create_user'),
+    path('approve-leave/<int:application_id>/', views.approve_leave, name='approve_leave'),
+    path('disapprove-leave/<int:application_id>/', views.disapprove_leave, name='disapprove_leave'),
+    path('toggle-user-status/<int:user_id>/<str:action>/', views.toggle_user_status, name='toggle_user_status'),
 ]

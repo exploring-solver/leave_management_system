@@ -54,6 +54,12 @@ class User(AbstractUser):
         MALE = "MALE", 'Male'
         FEMALE = "FEMALE", 'Female'
 
+    # first arguement is stored in database, second is its human readable form that will be displayed in dropdowns
+    class Department(models.TextChoices):
+        COMPUTER = "COMPUTER", 'Computer'
+        COMMERCE = "COMMERCE", 'Commerce'
+        PHYSICS = "PHYSICS", 'Physics'
+
 
     # fields coming from parent class AbstractUSer that will be used as-it-is in our custom User model are :
     # password, groups, user_permissions, is_superuser, is_staff, is_active, last_login, date_joined
@@ -69,6 +75,14 @@ class User(AbstractUser):
     name = models.CharField(max_length=50)
     role = models.CharField(max_length=50, choices=Role.choices)
     gender = models.CharField(max_length=20, choices=Gender.choices)
+    
+    # other fields:
+    emp_code = models.CharField(max_length=30, blank=True)
+    dept = models.CharField(max_length=50, choices=Department.choices, blank=True)
+    address = models.CharField(max_length=150, blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    country = models.CharField(max_length=50, blank=True)
+    mobile_number = models.CharField(max_length=50, blank=True)
     
     date_of_joining = models.DateField(blank=True, null=True)
 

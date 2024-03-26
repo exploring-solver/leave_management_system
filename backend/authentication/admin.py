@@ -25,7 +25,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'name', 'role', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_of_joining', 'password')
+        fields = ('email', 'name', 'emp_code', 'dept', 'address', 'city', 'country', 'mobile_number', 'role', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_of_joining', 'password')
 
     def save(self, commit=True):
         # Save the provided password in hashed format
@@ -43,7 +43,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'name', 'role', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_of_joining', 'password')
+        fields = ('email', 'name', 'emp_code', 'dept', 'address', 'city', 'country', 'mobile_number', 'role', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_of_joining', 'password')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -71,13 +71,13 @@ class CustomUserAdmin(UserAdmin):
     ordering = ['name']
 
     fieldsets = (
-        (None, {'fields': ('email', 'name', 'role', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_of_joining','password')}),
+        (None, {'fields': ('email', 'name', 'emp_code', 'dept', 'address', 'city', 'country', 'mobile_number', 'role', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_of_joining','password')}),
     )
     
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'name', 'role', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_of_joining', 'password1', 'password2'),
+            'fields': ('email', 'name', 'emp_code', 'dept', 'address', 'city', 'country', 'mobile_number', 'role', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_of_joining', 'password1', 'password2'),
         }),
     )
 

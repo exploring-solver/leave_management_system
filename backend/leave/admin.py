@@ -7,6 +7,7 @@ class EmployeeLeavesAdmin(admin.ModelAdmin):
     
 class LeaveApplicationsAdmin(admin.ModelAdmin):
     list_display = ['user', 'leave_category', 'from_date', 'to_date']
+    list_filter = ['past', 'approved']
     
 class LeaveCategoriesAdmin(admin.ModelAdmin):
     list_display = ['leave_type', 'description']
