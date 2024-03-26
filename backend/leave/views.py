@@ -31,7 +31,101 @@ def dashboard(request):
 
     # Fetch employee leaves for the logged in user
     employee_leaves = EmployeeLeaves.objects.filter(user=user)
+    
+    # Calculate total initial leaves allotted to the employee category-wise
+    total_leaves = {}
+    for category in employee_leaves:
+        category_name = category.leave_category.leave_type
 
+        if category_name not in total_leaves:
+            total_leaves[category_name] = 0
+        
+        role = user.role
+        gender = user.gender
+        date_of_joining = user.date_of_joining
+
+        if role == User.Role.TEACHING_STAFF:
+            if gender == User.Gender.MALE:
+                if datetime.now().date() - date_of_joining < timedelta(days=3650):
+                    if category_name == 'Casual Leave':
+                        total_leaves[category_name] += 10
+                    elif category_name in ['P-Leave', 'Medical Leave']:
+                        total_leaves[category_name] += 8
+                    elif category_name == 'Half Days':
+                        total_leaves[category_name] += 10
+                elif datetime.now().date() - date_of_joining < timedelta(days=7300):
+                    if category_name == 'Casual Leave':
+                        total_leaves[category_name] += 15
+                    elif category_name in ['P-Leave', 'Medical Leave']:
+                        total_leaves[category_name] += 8
+                    elif category_name == 'Half Days':
+                        total_leaves[category_name] += 10
+                else:
+                    if category_name == 'Casual Leave':
+                        total_leaves[category_name] += 20
+                    elif category_name in ['P-Leave', 'Medical Leave']:
+                        total_leaves[category_name] += 8
+                    elif category_name == 'Half Days':
+                        total_leaves[category_name] += 10
+            else:
+                if category_name == 'Casual Leave':
+                    total_leaves[category_name] += 20
+                elif category_name in ['P-Leave', 'Medical Leave']:
+                    total_leaves[category_name] += 8
+                elif category_name == 'Half Days':
+                    total_leaves[category_name] += 10
+        elif role == User.Role.NON_TEACHING_LAB_STAFF:
+            if gender == User.Gender.FEMALE:
+                if category_name == 'Medical Leave':
+                    total_leaves[category_name] += 10
+                elif category_name == 'Casual Leave':
+                    total_leaves[category_name] += 20
+                elif category_name == 'Half Days':
+                    total_leaves[category_name] += 10
+                elif category_name == 'P-Leave':
+                    total_leaves[category_name] += 8
+            else:
+                if datetime.now().date() - date_of_joining < timedelta(days=3650):
+                    if category_name == 'Casual Leave':
+                        total_leaves[category_name] += 10
+                elif datetime.now().date() - date_of_joining < timedelta(days=7300):
+                    if category_name == 'Casual Leave':
+                        total_leaves[category_name] += 15
+                else:
+                    if category_name == 'Casual Leave':
+                        total_leaves[category_name] += 20
+                if category_name == 'P-Leave':
+                    total_leaves[category_name] += 8
+                elif category_name == 'Half Days':
+                    total_leaves[category_name] += 10
+                elif category_name == 'Medical Leave':
+                    total_leaves[category_name] += 10
+        elif role == User.Role.NON_TEACHING_NON_LAB_STAFF:
+            if gender == User.Gender.FEMALE:
+                if category_name == 'Medical Leave':
+                    total_leaves[category_name] += 10
+                elif category_name == 'Casual Leave':
+                    total_leaves[category_name] += 20
+                elif category_name == 'Half Days':
+                    total_leaves[category_name] += 10
+                elif category_name == 'P-Leave':
+                    total_leaves[category_name] += 0
+            else:
+                if datetime.now().date() - date_of_joining < timedelta(days=3650):
+                    if category_name == 'Casual Leave':
+                        total_leaves[category_name] += 10
+                elif datetime.now().date() - date_of_joining < timedelta(days=7300):
+                    if category_name == 'Casual Leave':
+                        total_leaves[category_name] += 15
+                else:
+                    if category_name == 'Casual Leave':
+                        total_leaves[category_name] += 20
+                if category_name == 'P-Leave':
+                    total_leaves[category_name] += 0
+                elif category_name == 'Half Days':
+                    total_leaves[category_name] += 10
+                elif category_name == 'Medical Leave':
+                    total_leaves[category_name] += 10
     if request.method == 'POST':
         form = LeaveApplicationForm(request.POST)
         if form.is_valid():
@@ -99,9 +193,9 @@ def dashboard(request):
         'future_leaves': future_leaves,
         'approved_leaves': approved_leaves,
         'disapproved_leaves': disapproved_leaves,
-        'employee_leaves': employee_leaves  # Add employee leaves to the context
+        'employee_leaves': employee_leaves,
+        'total_leaves': total_leaves
     })
-
     
     
 @login_required

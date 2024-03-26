@@ -7,14 +7,16 @@
   <title>Dashboard</title>
   <!-- Include Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
 <body class="bg-gray-100">
   {% if messages %}
-		{% for message in messages %}
-			{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
-		{% endfor %}
-	{% endif %}
+  {% for message in messages %}
+  {% if message.tags %}
+  <script>alert("{{ message }}")</script> {% endif %}
+  {% endfor %}
+  {% endif %}
   <div class="flex h-screen">
     <!-- Sidebar -->
     <div
@@ -28,10 +30,7 @@
         </button>
       </div>
       <ul class="mt-8">
-        <li class="py-2 px-4 hover:bg-gray-700">Dashboard</li>
-        <li class="py-2 px-4 hover:bg-gray-700">Profile</li>
-        <li class="py-2 px-4 hover:bg-gray-700">Settings</li>
-        <li class="py-2 px-4 hover:bg-gray-700">Contacts</li>
+        <li class="py-2 px-4 hover:bg-gray-700"><a href="/">Dashboard</a></li>
         <li class="py-2 px-4 hover:bg-gray-700"><a href="/logout/">Logout</a></li>
       </ul>
     </div>
@@ -44,7 +43,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
         </button>
-        <h1 class="text-xl font-semibold">Online Leave Portal</h1>
+        <h1 class="text-xl font-semibold">DAV School Jalandhar</h1>
       </div>
       <!-- Main Content Area -->
       <div class="p-4 ">
@@ -52,62 +51,99 @@
         <h1 class="text-2xl font-semibold mt-8 mb-4 text-center">Welcome to Dashboard</h1>
         <div class="flex justify-between mx-auto bg-zinc-300 py-2 px-5  rounded shadow">
           <p class="text-center">Hello, {{ user.name }}</p>
-          <p class="text-center">Email: {{ user.email }}</p>
+          <!-- <p class="text-center">Email: {{ user.email }}</p> -->
+          <p class="text-center">{{ user.role }}</p>
           <!-- <p class="text-center">Role: {{ user.role }}</p> -->
         </div>
 
         <!-- Apply for Leave Form -->
         <div class=" flex-col bg-white rounded shadow p-4">
-          <h2 class="text-xl font-semibold mt-4 text-center pb-4 border-b-2 border-black">Apply for Leave</h2>
+          <div class="bg-white rounded shadow p-6 border-2 border-black">
+            <h2 class="text-xl font-semibold mb-4">Total Initial Leaves Allotted</h2>
+            <table class="w-full border-collapse">
+              <thead>
+                <tr>
+                  <th class="border border-gray-300 px-4 py-2">Leave Category</th>
+                  <th class="border border-gray-300 px-4 py-2">Total Leaves Allotted</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category, leaves in total_leaves.items %}
+                <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
+                  <td class="border border-gray-300 px-4 py-2 text-center">{{ category }}</td>
+                  <td class="border border-gray-300 px-4 py-2 text-center">{{ leaves }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
           <br>
-          <br>
-          <form method="post" action="/dashboard/" class="mt-2 mb-4 text-center flex flex-col items-start justify-center w-[90%] mx-auto">
-            {% csrf_token %}
-            <div class="flex flex-col items-start">
-                <label for="leave_category" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Leave
-                    Category</label>
-                <select id="leave_category" name="leave_category" class="border border-gray-300 rounded px-2 py-1">
-                    {% for category in leave_categories %}
-                    <option value="{{ category.leave_category.id }}">
-                        {{ category.leave_category.leave_type }}
-                    </option>
-                    {% endfor %}
-                </select><br />
+          <div class="flex justify-between gap-2 text-lg flex-wrap">
+            {% for leave in employee_leaves %}
+            <div class="p-2 shadow bg-zinc-100 rounded border-2 w-[300px] ">
+              <p class="font-semibold">{{leave.leave_category}}</p>
+              <p>{{leave.leaves_remaining}}</p>
             </div>
-            <!-- Conditional display for half-day options -->
-            <div id="half_day_options" class="flex flex-col items-start" style="display: none;">
+            {% endfor %}
+          </div>
+          <!-- Total Leaves Section -->
+          <br><br>
+          <div class="bg-slate-50 p-4 shadow rounded">
+
+            <h2 class="text-xl font-semibold mt-4 pb-4 border-b-2 border-black w-fit">Apply for Leave</h2>
+            <br>
+            <br>
+            <form method="post" action="/dashboard/"
+              class="mt-2 mb-4 text-center flex flex-col items-start justify-center w-[90%] mx-auto ">
+              {% csrf_token %}
+              <div class="flex flex-col items-start">
+                <label for="leave_category" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Leave
+                  Category</label>
+                <select id="leave_category" name="leave_category"
+                  class="border border-gray-300 rounded px-2 py-1 outline-none">
+                  {% for category in leave_categories %}
+                  <option value="{{ category.leave_category.id }}">
+                    {{ category.leave_category.leave_type }}
+                  </option>
+                  {% endfor %}
+                </select><br />
+              </div>
+              <!-- Conditional display for half-day options -->
+              <div id="half_day_options" class="flex flex-col items-start" style="display: none;">
                 <label class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Half Day Option:</label>
                 <input type="radio" id="first_half" name="which_half" value="FIRST_HALF">
                 <label for="first_half">First Half</label>
                 <input type="radio" id="second_half" name="which_half" value="SECOND_HALF">
                 <label for="second_half">Second Half</label>
-            </div>
-            <div class="flex flex-col items-start">
-                <label for="description" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Description:</label>
+              </div>
+              <div class="flex flex-col items-start">
+                <label for="description"
+                  class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Description:</label>
                 <textarea id="description" name="description" rows="4" cols="50"
-                    class="border border-gray-300 rounded px-2 py-1"></textarea><br />
-            </div>
-            <div class="flex flex-col items-start">
+                  class="border border-gray-300 rounded px-2 py-1 outline-none"></textarea><br />
+              </div>
+              <div class="flex flex-col items-start">
                 <label for="from_date" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">From Date:</label>
                 <input type="date" id="from_date" name="from_date"
-                    class="border border-gray-300 rounded px-2 py-1" /><br />
-            </div>
-            <div class="flex flex-col items-start">
+                  class="border border-gray-300 rounded px-2 py-1 outline-none" /><br />
+              </div>
+              <div class="flex flex-col items-start">
                 <label for="to_date" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">To Date:</label>
-                <input type="date" id="to_date" name="to_date" class="border border-gray-300 rounded px-2 py-1" /><br />
-            </div>
-        
-            <button type="submit"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mt-2">
+                <input type="date" id="to_date" name="to_date"
+                  class="border border-gray-300 rounded px-2 py-1 outline-none" /><br />
+              </div>
+
+              <button type="submit"
+                class="border-2 border-black text-black hover:bg-slate-200 py-2 text-lg w-[150px] px-4 rounded mt-2">
                 Submit
-            </button>
-        </form>
-        
-        
-        
+              </button>
+            </form>
+          </div>
+
+
+
         </div>
-<br>
-        <!-- <hr class="py-[1px] bg-black w-[90%] mx-auto my-5"> -->
+        <br>
         <!-- Leaves Information -->
         <div class=" flex-col bg-white rounded shadow p-4">
           <h2 class="text-xl font-semibold pb-2 border-b-2 border-black w-fit mb-4 text-lg">Leave Information</h2>
@@ -139,7 +175,7 @@
           </table>
 
           <!-- Non-Past Leaves -->
-          <h3 class="text-lg font-semibold mt-4 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Non-Past Leaves</h3>
+          <h3 class="text-lg font-semibold mt-4 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Awaiting Approval Leaves</h3>
           <table class="w-full border-collapse border border-gray-300">
             <thead>
               <tr>
@@ -163,11 +199,7 @@
               {% endfor %}
             </tbody>
           </table>
-          <div>{% for leave in employee_leaves %}
-                {{leave.leave_category}}
-                {{leave.leaves_remaining}}
-               {% endfor %}
-          </div>
+
         </div>
         {% else %}
         <p class="text-center mt-8">
@@ -191,17 +223,58 @@
 
 
 
-    // Show half-day options when "Half Days" is selected
-    document.getElementById('leave_category').addEventListener('change', function () {
-      // console.log(this.value);
-        const halfDayOptions = document.getElementById('half_day_options');
-        if (this.value === '4') {
-            halfDayOptions.style.display = 'flex';
-        } else {
-            halfDayOptions.style.display = 'none';
-        }
-    });
-       
+  // Show half-day options when "Half Days" is selected
+  document.getElementById('leave_category').addEventListener('change', function () {
+    // console.log(this.value);
+    const halfDayOptions = document.getElementById('half_day_options');
+    if (this.value === '4') {
+      halfDayOptions.style.display = 'flex';
+    } else {
+      halfDayOptions.style.display = 'none';
+    }
+  });
+
+  document.getElementById('from_date').addEventListener('change', function () {
+    var fromDate = new Date(this.value);
+    var toDateInput = document.getElementById('to_date');
+    var toDate = new Date(toDateInput.value);
+    var today = new Date();
+
+    if (fromDate < today) {
+      alert('Please select today or a future date for the From Date.');
+      this.value = '';
+      return;
+    }
+
+    var diffInDays = Math.floor((toDate - fromDate) / (1000 * 60 * 60 * 24));
+
+    if (diffInDays > 2) {
+      alert('The difference between From Date and To Date should not be more than 2 days.');
+      toDateInput.value = '';
+      return;
+    }
+  });
+
+  document.getElementById('to_date').addEventListener('change', function () {
+    var toDate = new Date(this.value);
+    var fromDate = new Date(document.getElementById('from_date').value);
+    var today = new Date();
+
+    if (toDate < today) {
+      alert('Please select today or a future date for the To Date.');
+      this.value = '';
+      return;
+    }
+
+    var diffInDays = Math.floor((toDate - fromDate) / (1000 * 60 * 60 * 24));
+
+    if (diffInDays > 2) {
+      alert('The difference between From Date and To Date should not be more than 2 days.');
+      this.value = '';
+      return;
+    }
+  });
+
 
 </script>
 
