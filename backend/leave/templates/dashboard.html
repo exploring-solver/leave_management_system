@@ -10,6 +10,11 @@
 </head>
 
 <body class="bg-gray-100">
+  {% if messages %}
+		{% for message in messages %}
+			{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+		{% endfor %}
+	{% endif %}
   <div class="flex h-screen">
     <!-- Sidebar -->
     <div
@@ -27,6 +32,7 @@
         <li class="py-2 px-4 hover:bg-gray-700">Profile</li>
         <li class="py-2 px-4 hover:bg-gray-700">Settings</li>
         <li class="py-2 px-4 hover:bg-gray-700">Contacts</li>
+        <li class="py-2 px-4 hover:bg-gray-700"><a href="/logout/">Logout</a></li>
       </ul>
     </div>
     <!-- Main Content -->
@@ -55,37 +61,50 @@
           <h2 class="text-xl font-semibold mt-4 text-center pb-4 border-b-2 border-black">Apply for Leave</h2>
           <br>
           <br>
-          <form class="mt-2 mb-4 text-center flex flex-col items-start justify-center w-[90%] mx-auto">
+          <form method="post" action="/dashboard/" class="mt-2 mb-4 text-center flex flex-col items-start justify-center w-[90%] mx-auto">
             {% csrf_token %}
             <div class="flex flex-col items-start">
-              <label for="leave_category" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Leave
-                Category</label>
-              <select id="leave_category" name="leave_category" class="border border-gray-300 rounded px-2 py-1">
-                {% for category in leave_categories %}
-                <option value="{{ category.leave_category.id }}">
-                  {{ category.leave_category.leave_type }}
-                </option>
-                {% endfor %}
-              </select><br />
+                <label for="leave_category" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Leave
+                    Category</label>
+                <select id="leave_category" name="leave_category" class="border border-gray-300 rounded px-2 py-1">
+                    {% for category in leave_categories %}
+                    <option value="{{ category.leave_category.id }}">
+                        {{ category.leave_category.leave_type }}
+                    </option>
+                    {% endfor %}
+                </select><br />
+            </div>
+            <!-- Conditional display for half-day options -->
+            <div id="half_day_options" class="flex flex-col items-start" style="display: none;">
+                <label class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Half Day Option:</label>
+                <input type="radio" id="first_half" name="which_half" value="FIRST_HALF">
+                <label for="first_half">First Half</label>
+                <input type="radio" id="second_half" name="which_half" value="SECOND_HALF">
+                <label for="second_half">Second Half</label>
             </div>
             <div class="flex flex-col items-start">
-              <label for="description" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Description:</label>
-              <textarea id="description" name="description" rows="4" cols="50"
-                class="border border-gray-300 rounded px-2 py-1"></textarea><br />
+                <label for="description" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Description:</label>
+                <textarea id="description" name="description" rows="4" cols="50"
+                    class="border border-gray-300 rounded px-2 py-1"></textarea><br />
             </div>
             <div class="flex flex-col items-start">
-              <label for="from_date" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">From Date:</label>
-              <input type="date" id="from_date" name="from_date"
-                class="border border-gray-300 rounded px-2 py-1" /><br />
+                <label for="from_date" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">From Date:</label>
+                <input type="date" id="from_date" name="from_date"
+                    class="border border-gray-300 rounded px-2 py-1" /><br />
             </div>
             <div class="flex flex-col items-start">
-              <label for="to_date" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">To Date:</label>
-              <input type="date" id="to_date" name="to_date" class="border border-gray-300 rounded px-2 py-1" /><br />
+                <label for="to_date" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">To Date:</label>
+                <input type="date" id="to_date" name="to_date" class="border border-gray-300 rounded px-2 py-1" /><br />
             </div>
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mt-2">
-              Submit
+        
+            <button type="submit"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mt-2">
+                Submit
             </button>
-          </form>
+        </form>
+        
+        
+        
         </div>
 <br>
         <!-- <hr class="py-[1px] bg-black w-[90%] mx-auto my-5"> -->
@@ -138,12 +157,17 @@
                 <td class="border border-gray-300 px-4 py-2">{{ leave.to_date }}</td>
                 <td
                   class="border border-gray-300 px-4 py-2 {% if leave.approved %}text-green-500 font-semibold{% else %}text-red-500 font-semibold{% endif %}">
-                  {% if leave.approved %} Approved {% else %} Disapproved {% endif %}
+                  {% if leave.approved %} Approved {% else %} Pending {% endif %}
                 </td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
+          <div>{% for leave in employee_leaves %}
+                {{leave.leave_category}}
+                {{leave.leaves_remaining}}
+               {% endfor %}
+          </div>
         </div>
         {% else %}
         <p class="text-center mt-8">
@@ -164,6 +188,21 @@
   closeSidebarBtn.addEventListener('click', () => {
     sidebar.classList.add('transform', '-translate-x-full');
   });
+
+
+
+    // Show half-day options when "Half Days" is selected
+    document.getElementById('leave_category').addEventListener('change', function () {
+      // console.log(this.value);
+        const halfDayOptions = document.getElementById('half_day_options');
+        if (this.value === '4') {
+            halfDayOptions.style.display = 'flex';
+        } else {
+            halfDayOptions.style.display = 'none';
+        }
+    });
+       
+
 </script>
 
 </html>

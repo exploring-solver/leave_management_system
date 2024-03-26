@@ -4,13 +4,16 @@ from django.contrib.auth.decorators import login_required
 from .decorators import admin_only
 from .models import LeaveApplications, EmployeeLeaves, LeaveCategories
 from .forms import LeaveApplicationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from authentication.models import User
 from datetime import datetime, timedelta
-
+from django.contrib import messages
+from django.utils import timezone
 
 def home_page(request):
     return render(request, 'home.html')
+
+
 
 @login_required
 def dashboard(request):
@@ -25,12 +28,54 @@ def dashboard(request):
     approved_leaves = LeaveApplications.objects.filter(user=user, approved=True)
     disapproved_leaves = LeaveApplications.objects.filter(user=user, approved=False, past=True)
 
+    # Fetch employee leaves for the logged in user
+    employee_leaves = EmployeeLeaves.objects.filter(user=user)
+
     if request.method == 'POST':
         form = LeaveApplicationForm(request.POST)
         if form.is_valid():
             leave_application = form.save(commit=False)
             leave_application.user = user
+
+            # Calculate applied leaves
+            from_date = form.cleaned_data['from_date']
+            to_date = form.cleaned_data['to_date']
+            applied_leaves = (to_date - from_date).days + 1
+
+            # Check if applied leaves exceed the leaves remaining
+            leave_category_id = form.cleaned_data['leave_category'].id
+            leave_category = LeaveCategories.objects.get(pk=leave_category_id)
+            user_leave_category = EmployeeLeaves.objects.get(user=user, leave_category=leave_category)
+
+            if from_date < timezone.now().date():
+                messages.info(request, 'You cannot apply leave for dates in the past.')
+                return redirect('dashboard')
+
+            if form.cleaned_data['leave_category'].leave_type == 'Half Days' and from_date != to_date:
+                messages.info(request, 'Both dates should be the same for half-day leaves')
+                return redirect('dashboard')
+
+            if from_date > to_date:
+                messages.info(request, 'Please Select Valid Dates')
+                return redirect('dashboard')
+
+            if applied_leaves > user_leave_category.leaves_remaining:
+                messages.info(request, 'You do not have enough leaves left for this category.')
+                return redirect('dashboard')
+
+            if applied_leaves == user_leave_category.leaves_remaining:
+                leave_application.save()
+                messages.info(request, 'Your leave has been exhausted contact the administrator')
+                return redirect('dashboard')
+
+            # Save the half-day option if applicable
+            if request.POST.get('which_half') != '' :
+                leave_application.which_half = request.POST.get('which_half')
+
+
+            # Save the leave application
             leave_application.save()
+            messages.info(request, 'Your leave have been Submitted Successfully')
             return redirect('dashboard')  # Redirect to dashboard after applying for leave
     else:
         form = LeaveApplicationForm()
@@ -42,8 +87,10 @@ def dashboard(request):
         'past_leaves': past_leaves,
         'future_leaves': future_leaves,
         'approved_leaves': approved_leaves,
-        'disapproved_leaves': disapproved_leaves
+        'disapproved_leaves': disapproved_leaves,
+        'employee_leaves': employee_leaves  # Add employee leaves to the context
     })
+
     
     
 @login_required
@@ -61,12 +108,13 @@ def apply_for_leave(request):
             return HttpResponse(form.errors)
     else:
         form = LeaveApplicationForm()
+        return redirect ('dashboard')
     
-    context = {
-        'form': form,
-        'employee_leaves': employee_leaves,
-    }
-    return render(request, 'dashboard.html', context)
+    # context = {
+    #     'form': form,
+    #     'employee_leaves': employee_leaves,
+    # }
+    # return render(request, 'dashboard.html', context)
 
 def user_login(request):
     if request.method == 'POST':
@@ -83,6 +131,11 @@ def user_login(request):
             return HttpResponse('Invalid Credentials')
     return render(request, 'home.html')
 
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect('home')
+
 
 @login_required
 def admin_dashboard(request):
@@ -90,13 +143,17 @@ def admin_dashboard(request):
         return HttpResponse("You are not authorized to access this page.")
     
     all_users = User.objects.all()
-    all_leave_applications = LeaveApplications.objects.all()
+    all_leave_applications_pending = LeaveApplications.objects.filter(past=False, approved=False)
+    all_leave_applications_approved = LeaveApplications.objects.filter(past=True, approved=True)
+    all_leave_applications_disapproved = LeaveApplications.objects.filter(past=True, approved=False)
     all_employee_leaves = EmployeeLeaves.objects.all()
     all_leave_categories = LeaveCategories.objects.all()
     
     return render(request, 'admin_dashboard.html', {
         'all_users': all_users,
-        'all_leave_applications': all_leave_applications,
+        'all_leave_applications_pending': all_leave_applications_pending,
+        'all_leave_applications_approved': all_leave_applications_approved,
+        'all_leave_applications_disapproved': all_leave_applications_disapproved,
         'all_employee_leaves': all_employee_leaves,
         'all_leave_categories': all_leave_categories
     })

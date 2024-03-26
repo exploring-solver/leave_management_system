@@ -28,6 +28,10 @@ class EmployeeLeaves(models.Model):
     
 class LeaveApplications(models.Model):
     
+    class Half(models.TextChoices):
+        FIRST_HALF = "FIRST_HALF", 'First Half'
+        SECOND_HALF = "SECOND_HALF", 'Second Half'
+    
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, db_column = "user", blank=True)
     
     leave_category = models.ForeignKey(LeaveCategories, on_delete=models.SET_NULL, null=True, db_column = "leave_category")    
@@ -39,6 +43,8 @@ class LeaveApplications(models.Model):
     
     approved = models.BooleanField(default=False)
     past = models.BooleanField(default=False)
+    
+    which_half = models.CharField(max_length=20, choices=Half.choices, blank=True, null=True)
     
     class Meta:
         db_table = "leave_applications"

@@ -82,7 +82,7 @@
         </div>
         <div class="flex flex-wrap gap-10">
             <!-- Leave Applications Section -->
-            <div class="bg-white rounded shadow p-6">
+            <!-- <div class="bg-white rounded shadow p-6">
                 <h2 class="text-xl font-semibold mb-4">Leave Applications</h2>
                 <input type="text" id="leaveFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
                     placeholder="Filter by User or Leave Category" />
@@ -104,6 +104,87 @@
                             <td>{{ application.from_date }}</td>
                             <td>{{ application.to_date }}</td>
                             <td>{{ application.approved }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div> -->
+
+            <!-- Pending Leave Applications Section -->
+            <div class="bg-white rounded shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Pending Leave Applications</h2>
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Leave Category</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for application in all_leave_applications_pending %}
+                        <tr>
+                            <td>{{ application.user }}</td>
+                            <td>{{ application.leave_category }}</td>
+                            <td>{{ application.from_date }}</td>
+                            <td>{{ application.to_date }}</td>
+                            <td>Pending</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Approved Leave Applications Section -->
+            <div class="bg-white rounded shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Approved Leave Applications</h2>
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Leave Category</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for application in all_leave_applications_approved %}
+                        <tr>
+                            <td>{{ application.user }}</td>
+                            <td>{{ application.leave_category }}</td>
+                            <td>{{ application.from_date }}</td>
+                            <td>{{ application.to_date }}</td>
+                            <td>Approved</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Disapproved Leave Applications Section -->
+            <div class="bg-white rounded shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Disapproved Leave Applications</h2>
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Leave Category</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for application in all_leave_applications_disapproved %}
+                        <tr>
+                            <td>{{ application.user }}</td>
+                            <td>{{ application.leave_category }}</td>
+                            <td>{{ application.from_date }}</td>
+                            <td>{{ application.to_date }}</td>
+                            <td>Disapproved</td>
                         </tr>
                         {% endfor %}
                     </tbody>
