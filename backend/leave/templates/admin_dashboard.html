@@ -1,131 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Admin Dashboard</h1>
-    
+
+<body class="bg-gray-100 p-8">
+    <h1 class="text-3xl font-semibold text-center mb-8 mt-4 text-center pb-4 border-b-2 border-black">Admin Dashboard</h1>
+
     {% if user.is_authenticated and user.role == "ADMIN" %}
-        <!-- Form for creating new users -->
-        <h2>Create New User</h2>
-        <form method="post" action="/create-user/">
-            {% csrf_token %}
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name"><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email"><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password"><br>
-            <label for="role">Role:</label>
-            <select id="role" name="role">
-                {% for role in user.Role.choices %}
+    <div class="flex flex-wrap gap-8">
+        <!-- Create New User Section -->
+        <div class="bg-white rounded shadow p-6 w-[90%] mx-auto lg:w-[60%]">
+            <h2 class="text-xl font-semibold mb-4">Create New User</h2>
+            <form method="post" action="/create-user/" class="space-y-4">
+                {% csrf_token %}
+                <label for="name" class="block">Name:</label>
+                <input type="text" id="name" name="name"
+                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+
+                <label for="email" class="block">Email:</label>
+                <input type="email" id="email" name="email"
+                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+
+                <label for="password" class="block">Password:</label>
+                <input type="password" id="password" name="password"
+                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+
+                <label for="role" class="block">Role:</label>
+                <select id="role" name="role" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2">
+                    {% for role in user.Role.choices %}
                     <option value="{{ role.0 }}">{{ role.1 }}</option>
-                {% endfor %}
-            </select><br>
-            <label for="gender">Gender:</label>
-            <select id="gender" name="gender">
-                {% for gender in user.Gender.choices %}
+                    {% endfor %}
+                </select><br />
+
+                <label for="gender" class="block">Gender:</label>
+                <select id="gender" name="gender" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2">
+                    {% for gender in user.Gender.choices %}
                     <option value="{{ gender.0 }}">{{ gender.1 }}</option>
-                {% endfor %}
-            </select><br>
-            <label for="date_of_joining">Date of Joining:</label>
-            <input type="date" id="date_of_joining" name="date_of_joining"><br>
-            <button type="submit">Create User</button>
-        </form>
-        
-        <!-- Display existing users -->
-        <h2>Existing Users</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Date of Joining</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in all_users %}
-                <tr>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.role }}</td>
-                    <td>{{ user.date_of_joining }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        
-        <!-- Display leave applications -->
-        <h2>Leave Applications</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Leave Category</th>
-                    <th>From Date</th>
-                    <th>To Date</th>
-                    <th>Approved</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for application in all_leave_applications %}
-                <tr>
-                    <td>{{ application.user }}</td>
-                    <td>{{ application.leave_category }}</td>
-                    <td>{{ application.from_date }}</td>
-                    <td>{{ application.to_date }}</td>
-                    <td>{{ application.approved }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        
-        <!-- Display employee leaves -->
-        <h2>Employee Leaves</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Leave Category</th>
-                    <th>Leaves Remaining</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for leaves in all_employee_leaves %}
-                <tr>
-                    <td>{{ leaves.user }}</td>
-                    <td>{{ leaves.leave_category }}</td>
-                    <td>{{ leaves.leaves_remaining }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        
-        <!-- Display leave categories -->
-        <h2>Leave Categories</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Leave Type</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for category in all_leave_categories %}
-                <tr>
-                    <td>{{ category.leave_type }}</td>
-                    <td>{{ category.description }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        
+                    {% endfor %}
+                </select><br />
+
+                <label for="date_of_joining" class="block">Date of Joining:</label>
+                <input type="date" id="date_of_joining" name="date_of_joining"
+                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+                    Create User
+                </button>
+            </form>
+        </div>
+
+        <!-- Existing Users Section -->
+        <div class="bg-white rounded shadow p-6">
+            <h2 class="text-xl font-semibold mb-4">Existing Users</h2>
+            <input type="text" id="userFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
+                placeholder="Filter by Name or Email" />
+            <table class="w-full">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Date of Joining</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    {% for user in all_users %}
+                    <tr>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>{{ user.date_of_joining }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="flex flex-wrap gap-10">
+            <!-- Leave Applications Section -->
+            <div class="bg-white rounded shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Leave Applications</h2>
+                <input type="text" id="leaveFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
+                    placeholder="Filter by User or Leave Category" />
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Leave Category</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>Approved</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaveTableBody">
+                        {% for application in all_leave_applications %}
+                        <tr>
+                            <td>{{ application.user }}</td>
+                            <td>{{ application.leave_category }}</td>
+                            <td>{{ application.from_date }}</td>
+                            <td>{{ application.to_date }}</td>
+                            <td>{{ application.approved }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Employee Leaves Section -->
+            <div class="bg-white rounded shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Employee Leaves</h2>
+                <input type="text" id="employeeLeaveFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
+                    placeholder="Filter by User or Leave Category" />
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Leave Category</th>
+                            <th>Leaves Remaining</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeLeaveTableBody">
+                        {% for leaves in all_employee_leaves %}
+                        <tr>
+                            <td>{{ leaves.user }}</td>
+                            <td>{{ leaves.leave_category }}</td>
+                            <td>{{ leaves.leaves_remaining }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Leave Categories Section -->
+            <div class="bg-white rounded shadow p-6">
+                <h2 class="text-xl font-semibold mb-4">Leave Categories</h2>
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th>Leave Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in all_leave_categories %}
+                        <tr>
+                            <td>{{ category.leave_type }}</td>
+                            <td>{{ category.description }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     {% else %}
-        <p>You are not authorized to view this page.</p>
+    <p class="text-center text-red-500">
+        You are not authorized to view this page.
+    </p>
     {% endif %}
+
+    <script>
+        // Filter functionality for Existing Users table
+        document
+            .getElementById("userFilter")
+            .addEventListener("input", function () {
+                const filterValue = this.value.toLowerCase();
+                const rows = document.querySelectorAll("#userTableBody tr");
+                rows.forEach((row) => {
+                    const name = row.children[0].textContent.toLowerCase();
+                    const email = row.children[1].textContent.toLowerCase();
+                    if (name.includes(filterValue) || email.includes(filterValue)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
+
+        // Filter functionality for Leave Applications table
+        document
+            .getElementById("leaveFilter")
+            .addEventListener("input", function () {
+                const filterValue = this.value.toLowerCase();
+                const rows = document.querySelectorAll("#leaveTableBody tr");
+                rows.forEach((row) => {
+                    const user = row.children[0].textContent.toLowerCase();
+                    const leaveCategory = row.children[1].textContent.toLowerCase();
+                    if (
+                        user.includes(filterValue) ||
+                        leaveCategory.includes(filterValue)
+                    ) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
+        // Filter functionality for Employee Leaves table
+        document
+            .getElementById("employeeLeaveFilter")
+            .addEventListener("input", function () {
+                const filterValue = this.value.toLowerCase();
+                const rows = document.querySelectorAll("#employeeLeaveTableBody tr");
+                rows.forEach((row) => {
+                    const user = row.children[0].textContent.toLowerCase();
+                    const leaveCategory = row.children[1].textContent.toLowerCase();
+                    if (
+                        user.includes(filterValue) ||
+                        leaveCategory.includes(filterValue)
+                    ) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
+    </script>
 </body>
+
 </html>
