@@ -263,10 +263,10 @@ import os
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-# Media files uploaded by user
-MEDIA_URL = 'media/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,"static")
+]
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type

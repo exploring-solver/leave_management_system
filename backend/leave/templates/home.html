@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,21 +7,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'output.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'sstyles.css' %}"> -->
+    <!-- script -->
+    <script defer async src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+    <style>
+    </style>
 </head>
 
-<body class="bg-zinc-100 flex items-center justify-center h-screen">
-    <div class="bg-white rounded shadow w-[300px] p-8">
-        <h1 class="text-center">Employee Login</h1>
-        <form method="post" class="mt-4 flex flex-col" action="{% url 'login' %}">
-            {% csrf_token %}
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" class="border-gray-300 border p-2 rounded">
-            <label for="password" class="mt-2">Password:</label>
-            <input type="password" id="password" name="password" class="border-gray-300 border p-2 rounded">
-            <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Login
-            </button>
-        </form>
+<body id="home" class="bg-zinc-100 flex items-center justify-center h-screen">
+    <div class="flex flex-col gap-8">
+        <h1 class="text-center text-3xl">Employee Login</h1>
+        <div class="bg-white rounded shadow w-[300px] p-8">
+            <form method="post" class="mt-4 flex gap-10 flex-col" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <input type="email" name="email" placeholder="Email"
+                        class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                    <label
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Email
+                    </label>
+                </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <input name="password" type="password" placeholder="Password"
+                        class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                    <label
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Password
+                    </label>
+                </div>
+                <button data-ripple-light="true"
+                    class="select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    type="submit">
+                    Submit
+                </button>
+            </form>
+        </div>
     </div>
 </body>
 

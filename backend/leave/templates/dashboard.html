@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,11 @@
   <title>Dashboard</title>
   <!-- Include Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-
+  <link rel="stylesheet" href="{% static 'output.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'sstyles.css' %}"> -->
+  <!-- script -->
+  <script defer async src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
 </head>
 
 <body class="bg-gray-100">
@@ -17,198 +22,260 @@
   <script>alert("{{ message }}")</script> {% endif %}
   {% endfor %}
   {% endif %}
-    <!-- Sidebar -->
-    <div
-      class="bg-gray-800 text-white w-64 fixed inset-y-0 left-0 transform -translate-x-full transition-transform duration-200 ease-in-out">
-      <div class="p-4 flex gap-2">
-        <h1 class="text-xl font-semibold">Online Leave Portal</h1>
-        <button id="closeSidebarBtn" class=" text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <!-- Sidebar -->
+  <div
+    class="bg-gray-800 text-white w-64 fixed inset-y-0 left-0 transform -translate-x-full transition-transform duration-200 ease-in-out"
+    id="sidebar">
+    <div class="relative flex flex-col text-gray-100">
+      <div class="p-4 mb-2 flex justify-between">
+        <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-100">
+          Employee
+        </h5>
+        <button id="closeSidebarBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
-      <ul class="mt-8">
-        <li class="py-2 px-4 hover:bg-gray-700 hover:cursor-pointer" onclick="showContent('dashboard')">Dashboard</li>
-        <li class="py-2 px-4 hover:bg-gray-700 hover:cursor-pointer" onclick="showContent('leaveinfo')">Past Leaves</li>
-        <li class="py-2 px-4 hover:bg-gray-700"><a href="/logout/">Logout</a></li>
-      </ul>
-    </div>
-    <!-- Main Content -->
-    <div class="flex flex-col flex-1">
-      <!-- Top Navbar with Hamburger Icon -->
-      <div class="bg-gray-800 text-white p-4">
-        <button id="openSidebarBtn" class="mr-4 text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
-        </button>
-        <h1 class="text-xl font-semibold">DAV School Jalandhar</h1>
-      </div>
-      <!-- Main Content Area -->
-      <div id="dashboard" class="p-4 content">
-        {% if user.is_authenticated %}
-        <h1 class="text-2xl font-semibold mt-8 mb-4 text-center">Welcome to Dashboard</h1>
-        <div class="flex justify-between mx-auto bg-zinc-300 py-2 px-5  rounded shadow">
-          <p class="text-center">Hello, {{ user.name }}</p>
-          <!-- <p class="text-center">Email: {{ user.email }}</p> -->
-          <p class="text-center">{{ user.role }}</p>
-          <!-- <p class="text-center">Role: {{ user.role }}</p> -->
-        </div>
-
-        <!-- Apply for Leave Form -->
-        <div class=" flex-col bg-white rounded shadow p-4">
-          <div class="bg-white rounded shadow p-6 border-2 border-black">
-            <h2 class="text-xl font-semibold mb-4">Total Initial Leaves Allotted</h2>
-            <table class="w-full border-collapse">
-              <thead>
-                <tr>
-                  <th class="border border-gray-300 px-4 py-2">Leave Category</th>
-                  <th class="border border-gray-300 px-4 py-2">Total Leaves Allotted</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for category, leaves in total_leaves.items %}
-                <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
-                  <td class="border border-gray-300 px-4 py-2 text-center">{{ category }}</td>
-                  <td class="border border-gray-300 px-4 py-2 text-center">{{ leaves }}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+      <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
+        <div role="button" onclick="showContent('dashboard')" data-ripple-light="true"
+          class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-100 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-100 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-100">
+          <div class="grid mr-4 place-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+              class="w-5 h-5">
+              <path fill-rule="evenodd"
+                d="M2.25 2.25a.75.75 0 000 1.5H3v10.5a3 3 0 003 3h1.21l-1.172 3.513a.75.75 0 001.424.474l.329-.987h8.418l.33.987a.75.75 0 001.422-.474l-1.17-3.513H18a3 3 0 003-3V3.75h.75a.75.75 0 000-1.5H2.25zm6.04 16.5l.5-1.5h6.42l.5 1.5H8.29zm7.46-12a.75.75 0 00-1.5 0v6a.75.75 0 001.5 0v-6zm-3 2.25a.75.75 0 00-1.5 0v3.75a.75.75 0 001.5 0V9zm-3 2.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5z"
+                clip-rule="evenodd"></path>
+            </svg>
           </div>
-          <br>
-          <div class="flex justify-between gap-2 text-lg flex-wrap">
-            {% for leave in employee_leaves %}
-            <div class="p-2 shadow bg-zinc-100 rounded border-2 w-[300px] ">
-              <p class="font-semibold">{{leave.leave_category}}</p>
-              <p>{{leave.leaves_remaining}}</p>
+          Dashboard
+        </div>
+        <div role="button" onclick="showContent('apply')" data-ripple-light="true"
+          class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-100 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-100 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-100">
+          <div class="grid mr-4 place-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+              class="w-5 h-5">
+              <path fill-rule="evenodd"
+                d="M2.25 2.25a.75.75 0 000 1.5H3v10.5a3 3 0 003 3h1.21l-1.172 3.513a.75.75 0 001.424.474l.329-.987h8.418l.33.987a.75.75 0 001.422-.474l-1.17-3.513H18a3 3 0 003-3V3.75h.75a.75.75 0 000-1.5H2.25zm6.04 16.5l.5-1.5h6.42l.5 1.5H8.29zm7.46-12a.75.75 0 00-1.5 0v6a.75.75 0 001.5 0v-6zm-3 2.25a.75.75 0 00-1.5 0v3.75a.75.75 0 001.5 0V9zm-3 2.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          Apply for Leave
+        </div>
+        <div role="button" onclick="showContent('leaveinfo')" data-ripple-light="true"
+          class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-100 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-100 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-100">
+          <div class="grid mr-4 place-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+              class="w-5 h-5">
+              <path fill-rule="evenodd"
+                d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          Past Leaves
+        </div>
+        <a href="/logout/">
+          <div role="button" data-ripple-light="true"
+            class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-100 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-100 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-100">
+            <div class="grid mr-4 place-items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                class="w-5 h-5">
+                <path fill-rule="evenodd"
+                  d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z"
+                  clip-rule="evenodd"></path>
+              </svg>
             </div>
+            Log Out
+          </div>
+        </a>
+      </nav>
+    </div>
+  </div>
+  <!-- Main Content -->
+  <div class="flex flex-col flex-1">
+    <!-- Top Navbar with Hamburger Icon -->
+    <div class="bg-cyan-400 text-black p-4 flex gap-[50%]items-start">
+      <button id="openSidebarBtn" class="mr-4 text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
+      <h1 class="text-xl font-semibold">DAV School Jalandhar</h1>
+    </div>
+    <!-- Main Content Area -->
+    <div id="dashboard" class="p-4 content">
+      {% if user.is_authenticated %}
+      <!-- <h1 class="text-2xl font-semibold mt-8 mb-4 text-center">Welcome to Dashboard</h1> -->
+      <div class="flex justify-between mx-auto bg-zinc-300 py-2 px-5 !bg-cyan-200  rounded shadow">
+        <p class="text-center text-blue-700 font-medium">Hello, {{ user.name }}</p>
+        <!-- <p class="text-c text-blue-700 font-mediumenter">Email: {{ user.email }}</p> -->
+        <p class="text-center text-blue-700 font-medium">{{ user.role }}</p>
+        <!-- <p class="text-center">Role: {{ user.role }}</p> -->
+      </div>
+
+      <!-- Apply for Leave Form -->
+      <div class=" flex-col bg-white rounded shadow p-4">
+        <div class="bg-white rounded-lg shadow-xl  p-6">
+          <h2 class="text-xl font-semibold mb-4 text-gray-600">Total Initial Leaves Allotted</h2>
+          <table class="w-full border-collapse">
+            <thead>
+              <tr class="text-blue-800">
+                <th class="font-medium border border-gray-300 px-4 py-2">Leave Category</th>
+                <th class="font-medium border border-gray-300 px-4 py-2">Total Leaves Allotted</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for category, leaves in total_leaves.items %}
+              <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
+                <td class="border border-gray-300 px-4 py-2 text-center text-blue-700">{{ category }}</td>
+                <td class="border border-gray-300 px-4 py-2 text-center text-green-700">{{ leaves }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <div class="flex justify-between gap-2 text-lg flex-wrap">
+          {% for leave in employee_leaves %}
+          <div class="p-2 shadow rounded border-2 w-[300px] ">
+            <p class="font-semibold text-gray-600 border-black border-b-[1px]">{{leave.leave_category}} Remaining</p>
+            <br>
+            <p class="text-red-500">{{leave.leaves_remaining}}</p>
+          </div>
+          {% endfor %}
+        </div>
+        <!-- Total Leaves Section -->
+        <br><br>
+
+
+
+      </div>
+
+    </div>
+    <br>
+    <div class="bg-slate-50 p-4 shadow rounded hidden content" id="apply">
+
+      <h2 class="text-xl font-semibold mt-4 pb-4 border-b-2 border-black w-fit">Apply for Leave</h2>
+      <br>
+      <br>
+      <form method="post" action="/dashboard/"
+        class="mt-2 mb-4 text-center flex flex-col items-start justify-center w-[90%] mx-auto ">
+        {% csrf_token %}
+        <div class="relative h-11 w-full min-w-[200px]">
+          <select id="leave_category" name="leave_category"
+            class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+            {% for category in leave_categories %}
+            <option value="{{ category.leave_category.id }}">
+              {{ category.leave_category.leave_type }}
+            </option>
             {% endfor %}
+          </select>
+          <label for="leave_category"
+            class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">Leave
+            Category</label>
+        </div>
+        <br>
+        <!-- Conditional display for half-day options -->
+        <div id="half_day_options" class="flex flex-col items-start" style="display: none;">
+          <label class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Half Day Option:</label>
+          <input type="radio" id="first_half" name="which_half" value="FIRST_HALF">
+          <label for="first_half">First Half</label>
+          <input type="radio" id="second_half" name="which_half" value="SECOND_HALF">
+          <label for="second_half">Second Half</label>
+        </div>
+        <div class="w-96">
+          <div class="relative w-full min-w-[200px]">
+            <textarea id="description" name="description"
+              class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-400 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-400 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
+              placeholder=" "></textarea>
+            <label
+              class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-600 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-600 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-400 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+              Description
+            </label>
           </div>
-          <!-- Total Leaves Section -->
-          <br><br>
-          <div class="bg-slate-50 p-4 shadow rounded">
-
-            <h2 class="text-xl font-semibold mt-4 pb-4 border-b-2 border-black w-fit">Apply for Leave</h2>
-            <br>
-            <br>
-            <form method="post" action="/dashboard/"
-              class="mt-2 mb-4 text-center flex flex-col items-start justify-center w-[90%] mx-auto ">
-              {% csrf_token %}
-              <div class="flex flex-col items-start">
-                <label for="leave_category" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Leave
-                  Category</label>
-                <select id="leave_category" name="leave_category"
-                  class="border border-gray-300 rounded px-2 py-1 outline-none">
-                  {% for category in leave_categories %}
-                  <option value="{{ category.leave_category.id }}">
-                    {{ category.leave_category.leave_type }}
-                  </option>
-                  {% endfor %}
-                </select><br />
-              </div>
-              <!-- Conditional display for half-day options -->
-              <div id="half_day_options" class="flex flex-col items-start" style="display: none;">
-                <label class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Half Day Option:</label>
-                <input type="radio" id="first_half" name="which_half" value="FIRST_HALF">
-                <label for="first_half">First Half</label>
-                <input type="radio" id="second_half" name="which_half" value="SECOND_HALF">
-                <label for="second_half">Second Half</label>
-              </div>
-              <div class="flex flex-col items-start">
-                <label for="description"
-                  class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Description:</label>
-                <textarea id="description" name="description" rows="4" cols="50"
-                  class="border border-gray-300 rounded px-2 py-1 outline-none"></textarea><br />
-              </div>
-              <div class="flex flex-col items-start">
-                <label for="from_date" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">From Date:</label>
-                <input type="date" id="from_date" name="from_date"
-                  class="border border-gray-300 rounded px-2 py-1 outline-none" /><br />
-              </div>
-              <div class="flex flex-col items-start">
-                <label for="to_date" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">To Date:</label>
-                <input type="date" id="to_date" name="to_date"
-                  class="border border-gray-300 rounded px-2 py-1 outline-none" /><br />
-              </div>
-
-              <button type="submit"
-                class="border-2 border-black text-black hover:bg-slate-200 py-2 text-lg w-[150px] px-4 rounded mt-2">
-                Submit
-              </button>
-            </form>
-          </div>
-
-
+        </div>
+        <div class="flex flex-col items-start">
+          <label for="from_date" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">From Date:</label>
+          <input type="date" id="from_date" name="from_date"
+            class="border border-gray-300 rounded px-2 py-1 outline-none" /><br />
+        </div>
+        <div class="flex flex-col items-start">
+          <label for="to_date" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">To Date:</label>
+          <input type="date" id="to_date" name="to_date"
+            class="border border-gray-300 rounded px-2 py-1 outline-none" /><br />
         </div>
 
-      </div>
-      <br>
-      <!-- Leaves Information -->
-      <div id="leaveinfo" class="content hidden flex-col bg-white rounded shadow p-4">
-        <h2 class="text-xl font-semibold pb-2 border-b-2 border-black w-fit mb-4 text-lg">Leave Information</h2>
+        <button type="submit" data-ripple-light="true"
+          class="select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+          Submit Application
+        </button>
+      </form>
+    </div>
+    <!-- Leaves Information -->
+    <div id="leaveinfo" class="content hidden flex-col bg-white rounded shadow p-4">
+      <h2 class=" font-semibold pb-2 border-b-2 border-black w-fit mb-4 text-lg">Leave Information</h2>
 
-        <!-- Past Leaves -->
-        <h3 class="text-lg font-semibold mt-4 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Past Leaves</h3>
-        <table class="w-full border-collapse border border-gray-300">
-          <thead>
-            <tr>
-              <th class="border border-gray-300 px-4 py-2">From Date</th>
-              <th class="border border-gray-300 px-4 py-2">To Date</th>
-              <th class="border border-gray-300 px-4 py-2">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for leave in past_leaves %}
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">
-                {{ leave.from_date }}
-              </td>
-              <td class="border border-gray-300 px-4 py-2">{{ leave.to_date }}</td>
-              <td
-                class="border border-gray-300 px-4 py-2 {% if leave.approved %}text-green-500 font-semibold{% else %}text-red-500 font-semibold{% endif %}">
-                {% if leave.approved %} Approved {% else %} Disapproved {% endif %}
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+      <!-- Past Leaves -->
+      <h3 class=" font-semibold mt-4 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Past Leaves</h3>
+      <table class="w-full border-collapse border border-gray-300">
+        <thead>
+          <tr class="text-blue-800">
+            <th class="font-medium border border-gray-300 px-4 py-2 text-start">From Date</th>
+            <th class="font-medium border border-gray-300 px-4 py-2 text-start">To Date</th>
+            <th class="font-medium border border-gray-300 px-4 py-2 text-start">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for leave in past_leaves %}
+          <tr class="">
+            <td class="border border-gray-300 px-4 py-2 text-blue-600">
+              {{ leave.from_date }}
+            </td>
+            <td class="border border-gray-300 px-4 py-2">{{ leave.to_date }}</td>
+            <td
+              class="border border-gray-300 px-4 py-2 {% if leave.approved %}text-green-500 font-semibold{% else %}text-red-500 font-semibold{% endif %}">
+              {% if leave.approved %} Approved {% else %} Disapproved {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
-        <!-- Non-Past Leaves -->
-        <h3 class="text-lg font-semibold mt-4 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Awaiting Approval
-          Leaves</h3>
-        <table class="w-full border-collapse border border-gray-300">
-          <thead>
-            <tr>
-              <th class="border border-gray-300 px-4 py-2">From Date</th>
-              <th class="border border-gray-300 px-4 py-2">To Date</th>
-              <th class="border border-gray-300 px-4 py-2">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for leave in future_leaves %}
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">
-                {{ leave.from_date }}
-              </td>
-              <td class="border border-gray-300 px-4 py-2">{{ leave.to_date }}</td>
-              <td
-                class="border border-gray-300 px-4 py-2 {% if leave.approved %}text-green-500 font-semibold{% else %}text-red-500 font-semibold{% endif %}">
-                {% if leave.approved %} Approved {% else %} Pending {% endif %}
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+      <!-- Non-Past Leaves -->
+      <h3 class="text-lg font-semibold mt-4 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Awaiting Approval
+        Leaves</h3>
+      <table class="w-full border-collapse border border-gray-300">
+        <thead>
+          <tr class="text-blue-800">
+            <th class="font-medium border border-gray-300 px-4 py-2 text-start">From Date</th>
+            <th class="font-medium border border-gray-300 px-4 py-2 text-start">To Date</th>
+            <th class="font-medium border border-gray-300 px-4 py-2 text-start">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for leave in future_leaves %}
+          <tr class="">
+            <td class="border border-gray-300 px-4 py-2 text-blue-600">
+              {{ leave.from_date }}
+            </td>
+            <td class="border border-gray-300 px-4 py-2">{{ leave.to_date }}</td>
+            <td
+              class="border border-gray-300 px-4 py-2 {% if leave.approved %}text-green-500 font-semibold{% else %}text-red-500 font-semibold{% endif %}">
+              {% if leave.approved %} Approved {% else %} Pending {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
-      </div>
-      {% else %}
-      <p class="text-center mt-8">
-        You are not logged in. Please
-        <a href="{% url 'login' %}" class="text-blue-500 hover:underline">login</a>.
-      </p>
-      {% endif %}
+    </div>
+    {% else %}
+    <p class="text-center mt-8">
+      You are not logged in. Please
+      <a href="{% url 'login' %}" class="text-blue-500 hover:underline">login</a>.
+    </p>
+    {% endif %}
 </body>
 <script>
   const openSidebarBtn = document.getElementById('openSidebarBtn');

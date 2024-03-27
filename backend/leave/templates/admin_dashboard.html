@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'output.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'sstyles.css' %}"> -->
+    <!-- script -->
+    <script defer async src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
 </head>
 
 <body class="bg-gray-100">
@@ -16,36 +21,153 @@
     <script>alert("{{ message }}")</script> {% endif %}
     {% endfor %}
     {% endif %}
-    <div class="flex justify-between items-center flex-wrap bg-gray-800 px-8">
+    <div class="flex justify-between items-center flex-wrap bg-cyan-500 px-8">
         <!-- Sidebar Content -->
-        <div class="fixed top-0 left-0 h-full bg-gray-800 text-white w-64 px-4 hidden" id="sidebar">
-            <div class="flex flex-col items-start space-x-4 py-10">
-                <button onclick="toggleSidebar()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-                <br>
-                <p onclick="showContent('home')"
-                    class="cursor-pointer text-lg border-white hover:bg-gray-700 p-2 hover:underline">Home</p>
-                <p onclick="showContent('user')"
-                    class="cursor-pointer text-lg border-white hover:bg-gray-700 p-2 hover:underline">User Management
-                </p>
-                <p onclick="showContent('pending')"
-                    class="cursor-pointer text-lg border-white hover:bg-gray-700 p-2 hover:underline">Pending Leaves</p>
-                <p onclick="showContent('approved')"
-                    class="cursor-pointer text-lg border-white hover:bg-gray-700 p-2 hover:underline">Approved Leaves
-                </p>
-                <p onclick="showContent('disapproved')"
-                    class="cursor-pointer text-lg border-white hover:bg-gray-700 p-2 hover:underline">Disapproved Leaves
-                </p>
-                <p onclick="showContent('empleaves')"
-                    class="cursor-pointer text-lg border-white hover:bg-gray-700 p-2 hover:underline">Employee Leaves
-                </p>
-                <!-- Add more sidebar links as needed -->
+        <div class="fixed top-0 left-0 h-full w-64 px-4 hidden rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5 z-40"
+            id="sidebar">
+            <div class="relative flex flex-col text-gray-700">
+                <div class="p-4 mb-2 flex justify-between">
+                    <h5
+                        class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                        Admin
+                    </h5>
+                    <button onclick="toggleSidebar()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
+                    <div role="button" onclick="showContent('home')" data-ripple-light="true"
+                        class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                        <div class="grid mr-4 place-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                aria-hidden="true" class="w-5 h-5">
+                                <path fill-rule="evenodd"
+                                    d="M2.25 2.25a.75.75 0 000 1.5H3v10.5a3 3 0 003 3h1.21l-1.172 3.513a.75.75 0 001.424.474l.329-.987h8.418l.33.987a.75.75 0 001.422-.474l-1.17-3.513H18a3 3 0 003-3V3.75h.75a.75.75 0 000-1.5H2.25zm6.04 16.5l.5-1.5h6.42l.5 1.5H8.29zm7.46-12a.75.75 0 00-1.5 0v6a.75.75 0 001.5 0v-6zm-3 2.25a.75.75 0 00-1.5 0v3.75a.75.75 0 001.5 0V9zm-3 2.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        Dashboard
+                    </div>
+                    <div role="button" onclick="showContent('user')" data-ripple-light="true"
+                        class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                        <div class="grid mr-4 place-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                aria-hidden="true" class="w-5 h-5">
+                                <path fill-rule="evenodd"
+                                    d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        User Management
+                    </div>
+                    <div class="relative block w-full">
+                        <div role="button"
+                            class="flex items-center w-full p-0 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gra700900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                            <button type="button"
+                                class="flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-blue-gray-700 hover:text-blue-gray-900">
+                                <div class="grid mr-4 place-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        aria-hidden="true" class="w-5 h-5">
+                                        <path fill-rule="evenodd"
+                                            d="M2.25 2.25a.75.75 0 000 1.5H3v10.5a3 3 0 003 3h1.21l-1.172 3.513a.75.75 0 001.424.474l.329-.987h8.418l.33.987a.75.75 0 001.422-.474l-1.17-3.513H18a3 3 0 003-3V3.75h.75a.75.75 0 000-1.5H2.25zm6.04 16.5l.5-1.5h6.42l.5 1.5H8.29zm7.46-12a.75.75 0 00-1.5 0v6a.75.75 0 001.5 0v-6zm-3 2.25a.75.75 0 00-1.5 0v3.75a.75.75 0 001.5 0V9zm-3 2.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <p
+                                    class="block mr-auto font-sans text-base antialiased font-normal leading-relaxed text-blue-gray-900">
+                                    Leave Management
+                                </p>
+                            </button>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div
+                                class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700">
+                                <nav
+                                    class="flex min-w-[240px] flex-col gap-1 p-0 font-sans text-base font-normal text-blue-gray-700">
+                                    <div role="button" onclick="showContent('pending')" data-ripple-light="true"
+                                        class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                                        <div class="grid mr-4 place-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="3" stroke="currentColor" aria-hidden="true"
+                                                class="w-5 h-3">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                                            </svg>
+                                        </div>
+                                        Pending Leaves
+                                    </div>
+                                    <div role="button" onclick="showContent('disapproved')" data-ripple-light="true"
+                                        class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                                        <div class="grid mr-4 place-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="3" stroke="currentColor" aria-hidden="true"
+                                                class="w-5 h-3">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                                            </svg>
+                                        </div>
+                                        Disapproved Leaves
+                                    </div>
+                                    <div role="button" onclick="showContent('approved')" data-ripple-light="true"
+                                        class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                                        <div class="grid mr-4 place-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="3" stroke="currentColor" aria-hidden="true"
+                                                class="w-5 h-3">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                                            </svg>
+                                        </div>
+                                        Approved Leaves
+                                    </div>
+                                    <div role="button" onclick="showContent('empleaves')" data-ripple-light="true"
+                                        class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                                        <div class="grid mr-4 place-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="3" stroke="currentColor" aria-hidden="true"
+                                                class="w-5 h-3">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                                            </svg>
+                                        </div>
+                                        Employee Leaves
+                                    </div>
+                                    <div role="button" onclick="showContent('leavecat')" data-ripple-light="true"
+                                        class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                                        <div class="grid mr-4 place-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="3" stroke="currentColor" aria-hidden="true"
+                                                class="w-5 h-3">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                                            </svg>
+                                        </div>
+                                        Leave Categories
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="button" data-ripple-light="true"
+                        class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                        <div class="grid mr-4 place-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                aria-hidden="true" class="w-5 h-5">
+                                <path fill-rule="evenodd"
+                                    d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        Log Out
+                    </div>
+                </nav>
             </div>
         </div>
-        <div class="text-white cursor-pointer" onclick="toggleSidebar()">
+        <div class="text-black cursor-pointer" onclick="toggleSidebar()">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -54,11 +176,14 @@
 
 
 
-        <h1 class="text-3xl font-semibold text-center py-5 text-center pb-4 text-white">Admin Dashboard</h1>
+        <h1 class="text-3xl font-semibold py-5 text-center pb-4 text-black">Admin Dashboard</h1>
 
-        <a href="/logout/"
-            class="border-2 border-red-600 text-red-500 font-semibold hover:bg-red-700 hover:text-white py-2 text-lg w-[150px] px-4 rounded mt-2">
-            Logout
+        <a href="/logout/" data-ripple-light="true">
+            <button
+                class="align-middle select-none font-sans  text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg border border-gray-900 text-gray-900 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85]"
+                type="button">
+                Logout
+            </button>
         </a>
     </div>
     <br>
@@ -67,58 +192,58 @@
         <div id="home" class="content">
             <div class="flex flex-wrap gap-8">
                 <!-- Total Registered Employees Card -->
-                <div class="bg-white rounded shadow p-6  mx-auto w-[90%] md:w-[40%]">
-                    <h2 class="text-xl font-semibold mb-4">Total Registered Employees</h2>
-                    <p class="text-4xl font-bold text-center">{{ total_registered_employees }}</p>
+                <div class="bg-white rounded shadow=xl px-6 py-2  mx-auto w-[90%] md:w-[40%] border-[1px] border-black">
+                    <h2 class="text-xl mb-4">Total Registered Employees</h2>
+                    <p class="text-4xl  text-center">{{ total_registered_employees }}</p>
                 </div>
 
                 <!-- Listed Leave Types Card -->
-                <div class="bg-white rounded shadow p-6  mx-auto w-[90%] md:w-[40%]">
-                    <h2 class="text-xl font-semibold mb-4">Listed Leave Types</h2>
-                    <p class="text-4xl font-bold text-center">{{ listed_leave_types }}</p>
+                <div class="bg-white rounded shadow=xl px-6 py-2  mx-auto w-[90%] md:w-[40%] border-[1px] border-black">
+                    <h2 class="text-xl mb-4">Listed Leave Types</h2>
+                    <p class="text-4xl  text-center">{{ listed_leave_types }}</p>
                 </div>
 
                 <!-- Total Leaves Card -->
-                <div class="bg-white rounded shadow p-6  mx-auto w-[90%] md:w-[40%]">
-                    <h2 class="text-xl font-semibold mb-4">Total Leaves</h2>
-                    <p class="text-4xl font-bold text-center">{{ total_leaves }}</p>
+                <div class="bg-white rounded shadow=xl px-6 py-2  mx-auto w-[90%] md:w-[40%] border-[1px] border-black">
+                    <h2 class="text-xl mb-4">Total Leaves</h2>
+                    <p class="text-4xl  text-center">{{ total_leaves }}</p>
                 </div>
 
                 <!-- Approved Leaves Card -->
-                <div class="bg-white rounded shadow p-6  mx-auto w-[90%] md:w-[40%]">
-                    <h2 class="text-xl font-semibold mb-4">Approved Leaves</h2>
-                    <p class="text-4xl font-bold text-center">{{ approved_leaves }}</p>
+                <div class="bg-white rounded shadow=xl px-6 py-2  mx-auto w-[90%] md:w-[40%] border-[1px] border-black">
+                    <h2 class="text-xl mb-4">Approved Leaves</h2>
+                    <p class="text-4xl  text-center">{{ approved_leaves }}</p>
                 </div>
 
                 <!-- New Leave Applications Card -->
-                <div class="bg-white rounded shadow p-6  mx-auto w-[90%] md:w-[40%]">
-                    <h2 class="text-xl font-semibold mb-4">New Leave Applications</h2>
-                    <p class="text-4xl font-bold text-center">{{ new_leave_applications }}</p>
+                <div class="bg-white rounded shadow=xl px-6 py-2  mx-auto w-[90%] md:w-[40%] border-[1px] border-black">
+                    <h2 class="text-xl mb-4">New Leave Applications</h2>
+                    <p class="text-4xl  text-center">{{ new_leave_applications }}</p>
                 </div>
 
             </div>
             <br>
             <!-- Existing Users Section -->
-            <div class="bg-white rounded shadow p-6">
-                <h2 class="text-xl font-semibold mb-4">Existing Users</h2>
+            <div class="rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5">
+                <h2 class="text-xl mb-4">Existing Users</h2>
                 <input type="text" id="userFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
                     placeholder="Filter by Name or Email" />
                 <table class="w-full">
                     <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Date of Joining</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                        <tr class="text-blue-800">
+                            <th class="font-semibold">Name</th>
+                            <th class="font-semibold">Email</th>
+                            <th class="font-semibold">Role</th>
+                            <th class="font-semibold">Date of Joining</th>
+                            <th class="font-semibold">Status</th>
+                            <th class="font-semibold">Action</th>
                         </tr>
                     </thead>
                     <tbody id="userTableBody">
                         {% for user in all_users %}
                         {% if user.role != 'ADMIN' %}
                         <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
-                            <td class="border border-gray-300 px-4 py-2 text-center">{{ user.name }}</td>
+                            <td class="border border-gray-300 text-blue-600 font-medium px-4 py-2 text-center">{{user.name }}</td>
                             <td class="border border-gray-300 px-4 py-2 text-center">{{ user.email }}</td>
                             <td class="border border-gray-300 px-4 py-2 text-center text-wrap">{{ user.role }}</td>
                             <td class="border border-gray-300 px-4 py-2 text-center">{{ user.date_of_joining }}</td>
@@ -133,14 +258,14 @@
                                 {% if user.is_active %}
                                 <form method="post" action="{% url 'toggle_user_status' user.id 'inactive' %}">
                                     {% csrf_token %}
-                                    <button type="submit"
+                                    <button type="submit" data-ripple-light="true"
                                         class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">Mark
                                         Inactive</button>
                                 </form>
                                 {% else %}
                                 <form method="post" action="{% url 'toggle_user_status' user.id 'active' %}">
                                     {% csrf_token %}
-                                    <button type="submit"
+                                    <button type="submit" data-ripple-light="true"
                                         class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Mark
                                         Active</button>
                                 </form>
@@ -157,68 +282,124 @@
         <br>
 
         <!-- Create New User Section -->
-        <div id="user" class="content hidden bg-white rounded shadow p-6  mx-auto ">
-            <h2 class="text-xl font-semibold mb-4">Create New User</h2>
+        <div id="user" class="content hidden bg-white rounded shadow px-6 py-2  mx-auto ">
+            <h2 class="text-xl mb-4">Create New User</h2>
             <form method="post" action="/create-user/" class="space-y-4">
                 {% csrf_token %}
-                <label for="name" class="block">Name:</label>
-                <input type="text" id="name" name="name"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <input type="text" id="name" name="name"
+                        class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                    <label for="name"
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Name:
+                    </label>
+                </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <input type="email" id="email" name="email"
+                        class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                    <label for="email"
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Email:
+                    </label>
+                </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <input type="password" id="password" name="password"
+                        class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                    <label for="password"
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Password:
+                    </label>
+                </div>
+                <div class="relative h-10 w-72 min-w-[200px]">
+                    <!-- <label for="role" class="block">Role:</label> -->
+                    <select id="role" name="role"
+                        class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                        {% for role in user.Role.choices %}
+                        <option value="{{ role.0 }}">{{ role.1 }}</option>
+                        {% endfor %}
+                    </select>
+                    <label
+                        class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Select a Role
+                    </label>
+                </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <!-- <label for="gender" class="block">Gender:</label> -->
+                    <select id="gender" name="gender"
+                        class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                        {% for gender in user.Gender.choices %}
+                        <option value="{{ gender.0 }}">{{ gender.1 }}</option>
+                        {% endfor %}
+                    </select>
+                    <label
+                        class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Select a Gender
+                    </label>
+                </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <input type="text" id="emp_code" name="emp_code"
+                        class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                    <label for="emp_code"
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Employee Code:
+                    </label>
+                </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <!-- <label for="dept" class="block">Department:</label> -->
+                    <select id="dept" name="dept"
+                        class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                        {% for department in user.Department.choices %}
+                        <option value="{{ department.0 }}">{{ department.1 }}</option>
+                        {% endfor %}
+                    </select>
+                    <label
+                        class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Select a Department
+                    </label>
+                </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <input type="text" id="address" name="address"
+                        class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                    <label for="address"
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Address:
+                    </label>
+                </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <input type="text" id="city" name="city"
+                        class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                    <label for="city"
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        City:
+                    </label>
+                </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <input type="text" id="country" name="country"
+                        class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                    <label for="country"
+                        class="block after:content[''] pointer-events-none absolute
+                    left-0 -top-1.5 h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Country:
+                    </label>
 
-                <label for="email" class="block">Email:</label>
-                <input type="email" id="email" name="email"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+                </div>
+                <div class="relative h-11 w-full min-w-[200px]">
+                    <input type="text" id="mobile_number" name="mobile_number"
+                        class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                    <label for="mobile_number"
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Mobile Number:
+                    </label>
+                </div>
+                <div class="relative h-11 w-full min-w-[200px]">
 
-                <label for="password" class="block">Password:</label>
-                <input type="password" id="password" name="password"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
-
-                <label for="role" class="block">Role:</label>
-                <select id="role" name="role" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2">
-                    {% for role in user.Role.choices %}
-                    <option value="{{ role.0 }}">{{ role.1 }}</option>
-                    {% endfor %}
-                </select><br />
-
-                <label for="gender" class="block">Gender:</label>
-                <select id="gender" name="gender" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2">
-                    {% for gender in user.Gender.choices %}
-                    <option value="{{ gender.0 }}">{{ gender.1 }}</option>
-                    {% endfor %}
-                </select><br />
-
-                <label for="emp_code" class="block">Employee Code:</label>
-                <input type="text" id="emp_code" name="emp_code"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
-
-                <label for="dept" class="block">Department:</label>
-                <select id="dept" name="dept" class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2">
-                    {% for department in user.Department.choices %}
-                    <option value="{{ department.0 }}">{{ department.1 }}</option>
-                    {% endfor %}
-                </select><br />
-
-                <label for="address" class="block">Address:</label>
-                <input type="text" id="address" name="address"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
-
-                <label for="city" class="block">City:</label>
-                <input type="text" id="city" name="city"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
-
-                <label for="country" class="block">Country:</label>
-                <input type="text" id="country" name="country"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
-
-                <label for="mobile_number" class="block">Mobile Number:</label>
-                <input type="text" id="mobile_number" name="mobile_number"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
-
-                <label for="date_of_joining" class="block">Date of Joining:</label>
-                <input type="date" id="date_of_joining" name="date_of_joining"
-                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
-
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+                    <label for="date_of_joining" class="block">Date of Joining:</label>
+                    <input type="date" id="date_of_joining" name="date_of_joining"
+                        class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2" /><br />
+                </div>
+                <br><br>
+                <button type="submit" data-ripple-light="true"
+                    class="select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                     Create User
                 </button>
             </form>
@@ -229,81 +410,100 @@
         <br>
         <!-- Pending Leaves  -->
         <div id="pending" class="content hidden bg-white rounded shadow p-6">
-            <h2 class="text-xl font-semibold mb-4">Pending Leave Applications</h2>
-            <hr class="bg-black py-[1px] w-[90%] mb-5">
+                    <h2 class="text-xl mb-4">Pending Leave Applications</h2>
+                    <hr class="bg-black py-[1px] w-[90%] mb-5">
 
-            <table class="w-full table">
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Leave Category</th>
-                        <th>From Date</th>
-                        <th>To Date</th>
-                        <th>Status</th>
-                        <th>Actions</th> <!-- New column for actions -->
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for application in all_leave_applications_pending %}
-                    <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ application.user }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ application.leave_category }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ application.from_date }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ application.to_date }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">Pending</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">
-                            <form method="post" action="{% url 'approve_leave' application.id %}">
-                                {% csrf_token %}
-                                <!-- Other fields -->
-                                <label for="admin_remark">Admin Remark:</label>
-                                <textarea id="admin_remark" name="admin_remark" rows="4" cols="30"
-                                    class="border border-gray-300 rounded px-2 py-1 outline-none"></textarea><br />
-                                <button type="submit"
-                                    class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Approve
-                                    Leave</button>
-                            </form>
-
-                            <form method="post" action="{% url 'disapprove_leave' application.id %}">
-                                {% csrf_token %}
-                                <!-- Other fields -->
-                                <label for="admin_remark">Admin Remark:</label>
-                                <textarea id="admin_remark" name="admin_remark" rows="4" cols="30"
-                                    class="border border-gray-300 rounded px-2 py-1 outline-none"></textarea><br />
-                                <button type="submit"
-                                    class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">Disapprove
-                                    Leave</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    <table class="w-full table">
+                        <thead>
+                            <tr class="text-blue-600">
+                                <th class="font-semibold">User</th>
+                                <th class="font-semibold">Leave Category</th>
+                                <th class="font-semibold">From Date</th>
+                                <th class="font-semibold">To Date</th>
+                                <th class="font-semibold">Status</th>
+                                <th class="font-semibold">Actions</th> <!-- New column for actions -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for application in all_leave_applications_pending %}
+                            <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
+                                <td class="border border-gray-300 px-4 py-2 text-center">{{ application.user }}</td>
+                                <td class="border border-gray-300 px-4 py-2 text-center">{{ application.leave_category}}</td>
+                                <td class="border border-gray-300 px-4 py-2 text-center">{{ application.from_date }}
+                                </td>
+                                <td class="border border-gray-300 px-4 py-2 text-center">{{ application.to_date }}</td>
+                                <td class="border border-gray-300 px-4 py-2 text-center">Pending</td>
+                                <td class="border border-gray-300 px-4 py-2 text-center">
+                                    <form method="post" action="{% url 'approve_leave' application.id %}">
+                                        {% csrf_token %}
+                                        <!-- Other fields -->
+                                        <div class="w-96">
+                                            <div class="relative w-full min-w-[200px]">
+                                              <textarea id="admin_remark" name="admin_remark"
+                                                class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
+                                                placeholder=" "></textarea>
+                                              <label
+                                                class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-600 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                                                Admin Remark
+                                              </label>
+                                            </div>
+                                          </div>
+                                        <button type="submit" data-ripple-light="true"
+                                        class="select-none rounded-lg bg-green-500 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Approve
+                                            Leave</button>
+                                    </form>
+                                    <br>
+                                    <hr class="bg-black py-[1px]">
+                                   <br>
+                                    <form method="post" action="{% url 'disapprove_leave' application.id %}">
+                                        {% csrf_token %}
+                                        <!-- Other fields -->
+                                        <div class="w-96">
+                                            <div class="relative w-full min-w-[200px]">
+                                              <textarea id="admin_remark" name="admin_remark"
+                                                class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
+                                                placeholder=" "></textarea>
+                                              <label
+                                                class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-600 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                                                Admin Remark
+                                              </label>
+                                            </div>
+                                          </div>
+                                        <button type="submit" data-ripple-light="true"
+                                        class="select-none rounded-lg bg-red-500 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Disapprove
+                                            Leave</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
         </div>
         <br>
 
         <!-- Approved Leave Applications Section -->
         <div id="approved" class=" hidden content bg-white rounded shadow p-6">
-            <h2 class="text-xl font-semibold mb-4">Approved Leave Applications</h2>
+            <h2 class="text-xl mb-4">Approved Leave Applications</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
 
             <table class="w-full table">
                 <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Leave Category</th>
-                        <th>From Date</th>
-                        <th>To Date</th>
-                        <th>Status</th>
+                    <tr class="text-blue-800">
+                        <th class="font-semibold">User</th>
+                        <th class="font-semibold">Leave Category</th>
+                        <th class="font-semibold">From Date</th>
+                        <th class="font-semibold">To Date</th>
+                        <th class="font-semibold">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for application in all_leave_applications_approved %}
                     <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ application.user }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center text-blue-600">{{ application.user }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ application.leave_category }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ application.from_date }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ application.to_date }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">Approved</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center text-green-500 font-medium">Approved</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -312,27 +512,27 @@
         <br>
         <!-- Disapproved Leave Applications Section -->
         <div id="disapproved" class="content hidden bg-white rounded shadow p-6">
-            <h2 class="text-xl font-semibold mb-4">Disapproved Leave Applications</h2>
+            <h2 class="text-xl mb-4">Disapproved Leave Applications</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
 
             <table class="w-full table">
                 <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Leave Category</th>
-                        <th>From Date</th>
-                        <th>To Date</th>
-                        <th>Status</th>
+                    <tr class="text-blue-800">
+                        <th class="font-semibold">User</th>
+                        <th class="font-semibold">Leave Category</th>
+                        <th class="font-semibold">From Date</th>
+                        <th class="font-semibold">To Date</th>
+                        <th class="font-semibold">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for application in all_leave_applications_disapproved %}
                     <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ application.user }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center text-blue-600">{{ application.user }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ application.leave_category }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ application.from_date }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ application.to_date }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">Disapproved</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center text-red-600 font-medium">Disapproved</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -340,23 +540,23 @@
         </div>
         <br>
         <!-- Employee Leaves Section -->
-        <div id="empleaves" class="content hidden rounded shadow p-6">
-            <h2 class="text-xl font-semibold mb-4">Employee Leaves</h2>
+        <div id="empleaves" data-ripple-light="true" class="content hidden rounded shadow p-6">
+            <h2 class="text-xl mb-4">Employee Leaves</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
             <input type="text" id="employeeLeaveFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
                 placeholder="Filter by User or Leave Category" />
             <table class="w-full table">
                 <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Leave Category</th>
-                        <th>Leaves Remaining</th>
+                    <tr class="text-blue-800">
+                        <th class="font-semibold">User</th>
+                        <th class="font-semibold">Leave Category</th>
+                        <th class="font-semibold">Leaves Remaining</th>
                     </tr>
                 </thead>
                 <tbody id="employeeLeaveTableBody">
                     {% for leaves in all_employee_leaves %}
                     <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ leaves.user }}</td>
+                        <td class="border text-blue-600 border-gray-300 px-4 py-2 text-center">{{ leaves.user }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ leaves.leave_category }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ leaves.leaves_remaining }}</td>
                     </tr>
@@ -366,20 +566,20 @@
         </div>
         <br>
         <!-- Leave Categories Section -->
-        <div class="bg-white rounded shadow p-6">
-            <h2 class="text-xl font-semibold mb-4">Leave Categories</h2>
+        <div class="bg-white rounded shadow p-6 hidden content" id="leavecat">
+            <h2 class="text-xl mb-4">Leave Categories</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
             <table class="w-full table">
                 <thead>
-                    <tr>
-                        <th>Leave Type</th>
-                        <th>Description</th>
+                    <tr class="text-blue-800">
+                        <th class="font-semibold">Leave Type</th>
+                        <th class="font-semibold">Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for category in all_leave_categories %}
                     <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ category.leave_type }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center text-blue-600">{{ category.leave_type }}</td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ category.description }}</td>
                     </tr>
                     {% endfor %}
@@ -394,6 +594,7 @@
         You are not authorized to view this page.
     </p>
     {% endif %}
+
 
     <script>
         // Filter functionality for Existing Users table
@@ -454,7 +655,7 @@
 
 
 
-        //for sidebar
+        //for sidebar 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('hidden');
