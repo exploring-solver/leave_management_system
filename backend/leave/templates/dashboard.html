@@ -205,6 +205,10 @@
           <input type="date" id="to_date" name="to_date"
             class="border border-gray-300 rounded px-2 py-1 outline-none" /><br />
         </div>
+        <div>
+          <label for="attachment"></label>
+          <input type="file" name="attachment" >
+        </div>
 
         <button type="submit" data-ripple-light="true"
           class="select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
@@ -243,7 +247,7 @@
       </table>
 
       <!-- Non-Past Leaves -->
-      <h3 class="text-lg font-semibold mt-4 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Awaiting Approval
+      <h3 class=" font-semibold mt-4 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Awaiting Approval
         Leaves</h3>
       <table class="w-full border-collapse border border-gray-300">
         <thead>
@@ -308,7 +312,7 @@
     var toDateInput = document.getElementById('to_date');
     var toDate = new Date(toDateInput.value);
     var today = new Date();
-
+    
     if (fromDate < today) {
       alert('Please select today or a future date for the From Date.');
       this.value = '';

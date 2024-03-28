@@ -46,7 +46,7 @@ class LeaveApplications(models.Model):
     admin_remark = models.TextField(blank=True)
     
     which_half = models.CharField(max_length=20, choices=Half.choices, blank=True, null=True)
-    
+    attachment =  models.FileField(blank=True, null=True,upload_to="media")
     class Meta:
         db_table = "leave_applications"
         verbose_name_plural ="Leave Applications"

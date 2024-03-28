@@ -127,11 +127,11 @@ def dashboard(request):
                 elif category_name == 'Medical Leave':
                     total_leaves[category_name] += 10
     if request.method == 'POST':
-        form = LeaveApplicationForm(request.POST)
+        form = LeaveApplicationForm(request.POST, request.FILES)
         if form.is_valid():
             leave_application = form.save(commit=False)
             leave_application.user = user
-
+            print(request.POST.get("attachment"))
             # Calculate applied leaves
             from_date = form.cleaned_data['from_date']
             to_date = form.cleaned_data['to_date']
@@ -206,8 +206,10 @@ def apply_for_leave(request):
         form = LeaveApplicationForm(request.POST)
         if form.is_valid():
             leave_application = form.save(commit=False)
+            
             leave_application.user = request.user
             leave_application.save()
+            
             return redirect('dashboard')
         else:
             return HttpResponse(form.errors)
