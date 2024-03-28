@@ -23,12 +23,12 @@
     {% endif %} -->
 
     {% if messages %}
-        {% for message in messages %}
-            <div class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% endif %}">
-            {{ message }}
-            <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
-            </div>
-        {% endfor %}
+    {% for message in messages %}
+    <div class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% endif %}">
+        {{ message }}
+        <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+    {% endfor %}
     {% endif %}
 
     <div class="flex justify-between items-center flex-wrap bg-cyan-600 px-8 sticky top-0 z-50">
@@ -193,19 +193,19 @@
                 </div>
             </div>
             <a href="/logout/" data-ripple-light="true">
-            <div role="button" data-ripple-light="true"
-                class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                <div class="grid mr-4 place-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
-                        class="w-5 h-5">
-                        <path fill-rule="evenodd"
-                            d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z"
-                            clip-rule="evenodd"></path>
-                    </svg>
+                <div role="button" data-ripple-light="true"
+                    class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                    <div class="grid mr-4 place-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            aria-hidden="true" class="w-5 h-5">
+                            <path fill-rule="evenodd"
+                                d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    Log Out
                 </div>
-                Log Out
-            </div>
-        </a>
+            </a>
         </nav>
         <div id="home" class="content">
             <div class="flex flex-wrap gap-8">
@@ -271,18 +271,19 @@
                             </td>
                             <td class="  px-4 py-2">{{ application.to_date }}</td>
                             {% if application.attachment %}
-                                <td class="  px-4 py-2">
-                                    <a class="underline" style="color: blue;" href="{{ application.attachment.url }}" target="_blank" >Attachment</a>
-                                </td>
+                            <td class="  px-4 py-2">
+                                <a class="underline" style="color: blue;" href="{{ application.attachment.url }}"
+                                    target="_blank">Attachment</a>
+                            </td>
                             {% else %}
-                                <td class="  px-4 py-2">-</td>
+                            <td class="  px-4 py-2">-</td>
                             {% endif %}
                             <td class="  px-4 py-2 font-semibold text-red-600">Pending</td>
                             <td class="  px-4 py-5 flex gap-5">
                                 <form method="post" action="{% url 'approve_leave' application.id %}">
                                     {% csrf_token %}
                                     <!-- Other fields -->
-                                    <div class="w-96">
+                                    <div class="w-64 lg:w-72">
                                         <div class="relative w-full min-w-[200px]">
                                             <textarea id="admin_remark" name="admin_remark"
                                                 class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
@@ -303,7 +304,7 @@
                                 <form method="post" action="{% url 'disapprove_leave' application.id %}">
                                     {% csrf_token %}
                                     <!-- Other fields -->
-                                    <div class="w-96">
+                                    <div class="w-64 lg:w-72">
                                         <div class="relative w-full min-w-[200px]">
                                             <textarea id="admin_remark" name="admin_remark"
                                                 class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
@@ -328,12 +329,12 @@
         <!-- Existing Users Section -->
         <div id="user_manage"
             class="content hidden rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5 h-full w-full">
-            <h2 class="text-xl mb-4 font-semibold uppercase">Existing Users</h2>
+            <h2 class="text-xl mb-4 font-semibold uppercase">Employees info</h2>
             <input type="text" id="userFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
                 placeholder="Filter by Name or Email" />
             <table class="w-full">
                 <thead>
-                    <tr class="text-blue-800">
+                    <tr class="text-blue-900">
                         <th class="text-start pb-4 px-4">Name</th>
                         <th class="text-start pb-4 px-4">Email</th>
                         <th class="text-start pb-4 px-4">Role</th>
@@ -363,14 +364,14 @@
                             <form method="post" action="{% url 'toggle_user_status' user.id 'inactive' %}">
                                 {% csrf_token %}
                                 <button type="submit" data-ripple-light="true"
-                                    class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">Mark
+                                    class="select-none rounded-lg bg-red-500 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Mark
                                     Inactive</button>
                             </form>
                             {% else %}
                             <form method="post" action="{% url 'toggle_user_status' user.id 'active' %}">
                                 {% csrf_token %}
                                 <button type="submit" data-ripple-light="true"
-                                    class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">Mark
+                                    class="select-none rounded-lg bg-green-500 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Mark
                                     Active</button>
                             </form>
                             {% endif %}
@@ -393,7 +394,7 @@
                         <input type="text" id="name" name="name"
                             class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                         <label for="name"
-                            class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                             Name:
                         </label>
                     </div>
@@ -401,35 +402,35 @@
                         <input type="email" id="email" name="email"
                             class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                         <label for="email"
-                            class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                             Email:
                         </label>
                     </div>
 
                 </div>
                 <div class="flex gap-10 flex-wrap">
-                <div class="relative h-11 min-w-[200px]">
-                    <input type="password" id="password" name="password"
-                        class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
-                    <label for="password"
-                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                        Password:
-                    </label>
-                </div>
-                <div class="relative h-10 w-72 min-w-[200px]">
-                    <!-- <label for="role" class="block">Role:</label> -->
-                    <select id="role" name="role"
-                        class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
-                        <option value="">-Select Role-</option>
-                        {% for role in user.Role.choices %}
-                        <option value="{{ role.0 }}">{{ role.1 }}</option>
-                        {% endfor %}
-                    </select>
-                    <label
-                        class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-opacity-80 peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-opacity-80 peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                        Select a Role
-                    </label>
-                </div>
+                    <div class="relative h-11 min-w-[200px]">
+                        <input type="password" id="password" name="password"
+                            class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                        <label for="password"
+                            class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Password:
+                        </label>
+                    </div>
+                    <div class="relative h-10 w-72 min-w-[200px]">
+                        <!-- <label for="role" class="block">Role:</label> -->
+                        <select id="role" name="role"
+                            class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                            <option value="">-Select Role-</option>
+                            {% for role in user.Role.choices %}
+                            <option value="{{ role.0 }}">{{ role.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <label
+                            class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-opacity-80 peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-opacity-80 peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Select a Role
+                        </label>
+                    </div>
                 </div>
                 <br>
                 <div class="relative h-11 min-w-[200px]">
@@ -451,7 +452,7 @@
                     <input type="text" id="emp_code" name="emp_code"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                     <label for="emp_code"
-                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         Employee Code:
                     </label>
                 </div>
@@ -475,7 +476,7 @@
                     <input type="text" id="address" name="address"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                     <label for="address"
-                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         Address:
                     </label>
                 </div>
@@ -483,7 +484,7 @@
                     <input type="text" id="city" name="city"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                     <label for="city"
-                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         City:
                     </label>
                 </div>
@@ -492,7 +493,7 @@
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                     <label for="country"
                         class="block after:content[''] pointer-events-none absolute
-                    left-0 -top-1.5 h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                    left-0 -top-1.5 h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         Country:
                     </label>
 
@@ -501,7 +502,7 @@
                     <input type="text" id="mobile_number" name="mobile_number"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                     <label for="mobile_number"
-                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         Mobile Number:
                     </label>
                 </div>
@@ -524,34 +525,43 @@
         <br>
         <!-- Pending Leaves  -->
         <div id="pending" class="content hidden bg-white rounded shadow p-6">
-            <h2 class="text-xl mb-4">Pending Leave Applications</h2>
+            <h2 class="text-xl mb-4 uppercase">Latest Leave Applications</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
 
             <table class="w-full table">
                 <thead>
-                    <tr class="text-blue-600">
-                        <th class="font-semibold">User</th>
-                        <th class="font-semibold">Leave Category</th>
-                        <th class="font-semibold">From Date</th>
-                        <th class="font-semibold">To Date</th>
-                        <th class="font-semibold">Status</th>
-                        <th class="font-semibold">Actions</th> <!-- New column for actions -->
+                    <tr class="text-blue-900">
+                        <th class="text-start px-4">User</th>
+                        <th class="text-start px-4">Leave Category</th>
+                        <th class="text-start px-4">From Date</th>
+                        <th class="text-start px-4">To Date</th>
+                        <th class="text-start px-4">Attachment</th>
+                        <th class="text-start px-4">Status</th>
+                        <th class="text-start px-4">Actions</th> <!-- New column for actions -->
                     </tr>
                 </thead>
                 <tbody>
                     {% for application in all_leave_applications_pending %}
                     <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
-                        <td class="  px-4 py-2">{{ application.user }}</td>
+                        <td class="  px-4 py-2 font-medium text-blue-600">{{ application.user }}</td>
                         <td class="  px-4 py-2">{{ application.leave_category}}</td>
                         <td class="  px-4 py-2">{{ application.from_date }}
                         </td>
                         <td class="  px-4 py-2">{{ application.to_date }}</td>
-                        <td class="  px-4 py-2">Pending</td>
+                        {% if application.attachment %}
                         <td class="  px-4 py-2">
+                            <a class="underline" style="color: blue;" href="{{ application.attachment.url }}"
+                                target="_blank">Attachment</a>
+                        </td>
+                        {% else %}
+                        <td class="  px-4 py-2">-</td>
+                        {% endif %}
+                        <td class="  px-4 py-2 font-semibold text-red-600">Pending</td>
+                        <td class="  px-4 py-5 flex gap-5">
                             <form method="post" action="{% url 'approve_leave' application.id %}">
                                 {% csrf_token %}
                                 <!-- Other fields -->
-                                <div class="w-96">
+                                <div class="w-64 lg:w-72">
                                     <div class="relative w-full min-w-[200px]">
                                         <textarea id="admin_remark" name="admin_remark"
                                             class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
@@ -572,7 +582,7 @@
                             <form method="post" action="{% url 'disapprove_leave' application.id %}">
                                 {% csrf_token %}
                                 <!-- Other fields -->
-                                <div class="w-96">
+                                <div class="w-64 lg:w-72">
                                     <div class="relative w-full min-w-[200px]">
                                         <textarea id="admin_remark" name="admin_remark"
                                             class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
@@ -596,18 +606,18 @@
         <br>
 
         <!-- Approved Leave Applications Section -->
-        <div id="approved" class=" hidden content bg-white rounded shadow p-6">
-            <h2 class="text-xl mb-4">Approved Leave Applications</h2>
+        <div id="approved" class=" hidden content bg-white rounded shadow p-6 w-full">
+            <h2 class="text-xl text-gray-600 font-semibold mb-4">Approved Leave Applications</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
 
             <table class="w-full table">
                 <thead>
-                    <tr class="text-blue-800">
-                        <th class="font-semibold">User</th>
-                        <th class="font-semibold">Leave Category</th>
-                        <th class="font-semibold">From Date</th>
-                        <th class="font-semibold">To Date</th>
-                        <th class="font-semibold">Status</th>
+                    <tr class="text-blue-900">
+                        <th class="text-start px-4">User</th>
+                        <th class="text-start px-4">Leave Category</th>
+                        <th class="text-start px-4">From Date</th>
+                        <th class="text-start px-4">To Date</th>
+                        <th class="text-start px-4">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -627,18 +637,18 @@
         </div>
         <br>
         <!-- Disapproved Leave Applications Section -->
-        <div id="disapproved" class="content hidden bg-white rounded shadow p-6">
+        <div id="disapproved" class="content hidden bg-white rounded shadow p-6 w-full">
             <h2 class="text-xl mb-4">Disapproved Leave Applications</h2>
-            <hr class="bg-black py-[1px] w-[90%] mb-5">
+            <hr class="bg-gray-600 py-[1px] w-[90%] mb-5">
 
             <table class="w-full table">
                 <thead>
-                    <tr class="text-blue-800">
-                        <th class="font-semibold">User</th>
-                        <th class="font-semibold">Leave Category</th>
-                        <th class="font-semibold">From Date</th>
-                        <th class="font-semibold">To Date</th>
-                        <th class="font-semibold">Status</th>
+                    <tr class="text-blue-900">
+                        <th class="font-bold text-start px-4">User</th>
+                        <th class="font-bold text-start px-4">Leave Category</th>
+                        <th class="font-bold text-start px-4">From Date</th>
+                        <th class="font-bold text-start px-4">To Date</th>
+                        <th class="font-bold text-start px-4">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -658,7 +668,7 @@
         </div>
         <br>
         <!-- Employee Leaves Section -->
-        <div id="empleaves" data-ripple-light="true" class="content hidden rounded shadow p-6">
+        <div id="empleaves" data-ripple-light="true" class="content hidden rounded shadow p-6 w-2/3">
             <h2 class="text-xl mb-4">Employee Leaves</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
             <input type="text" id="employeeLeaveFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
@@ -666,9 +676,9 @@
             <table class="w-full table">
                 <thead>
                     <tr class="text-blue-800">
-                        <th class="font-semibold">User</th>
-                        <th class="font-semibold">Leave Category</th>
-                        <th class="font-semibold">Leaves Remaining</th>
+                        <th class="px-4 text-start">User</th>
+                        <th class="px-4 text-start">Leave Category</th>
+                        <th class="px-4 text-start">Leaves Remaining</th>
                     </tr>
                 </thead>
                 <tbody id="employeeLeaveTableBody">
@@ -684,14 +694,14 @@
         </div>
         <br>
         <!-- Leave Categories Section -->
-        <div class="bg-white rounded shadow p-6 hidden content" id="leavecat">
+        <div class="bg-white rounded shadow p-6 hidden content w-full" id="leavecat">
             <h2 class="text-xl mb-4">Leave Categories</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
             <table class="w-full table">
                 <thead>
-                    <tr class="text-blue-800">
-                        <th class="font-semibold">Leave Type</th>
-                        <th class="font-semibold">Description</th>
+                    <tr class="text-blue-900">
+                        <th class="text-start px-4">Leave Type</th>
+                        <th class="text-start px-4">Description</th>
                     </tr>
                 </thead>
                 <tbody>
