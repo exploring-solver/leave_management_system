@@ -801,3 +801,28 @@ video {
   color: transparent;
 }
 
+.notification {
+  position: relative;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 0.25rem;
+}
+
+.notification.success {
+  color: #155724; /* Dark green text color for success messages */
+  background-color: #d1e7dd; /* Light green background color for success messages */
+  border: 1px solid #badbcc; /* Border color for success messages */
+}
+
+.notification.info {
+  color: #721c24; /* Red color for info messages */
+  background-color: #f8d7da; /* Light red background color for info messages */
+  border: 1px solid #f5c6cb; /* Border color for info messages */
+}
+
+.notification .close {
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+  cursor: pointer;
+}

@@ -15,12 +15,22 @@
 
 <body class="">
 
-    {% if messages %}
+    <!-- {% if messages %}
     {% for message in messages %}
     {% if message.tags %}
     <script>alert("{{ message }}")</script> {% endif %}
     {% endfor %}
+    {% endif %} -->
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% endif %}">
+            {{ message }}
+            <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+            </div>
+        {% endfor %}
     {% endif %}
+
     <div class="flex justify-between items-center flex-wrap bg-cyan-600 px-8 sticky top-0 z-50">
         <!-- Sidebar Content -->
         <!-- <div class="h-full w-64 px-4 bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5 z-40"
@@ -182,6 +192,7 @@
                     </div>
                 </div>
             </div>
+            <a href="/logout/" data-ripple-light="true">
             <div role="button" data-ripple-light="true"
                 class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                 <div class="grid mr-4 place-items-center">
@@ -194,6 +205,7 @@
                 </div>
                 Log Out
             </div>
+        </a>
         </nav>
         <div id="home" class="content">
             <div class="flex flex-wrap gap-8">
@@ -245,6 +257,7 @@
                             <th class="text-start px-4">Leave Category</th>
                             <th class="text-start px-4">From Date</th>
                             <th class="text-start px-4">To Date</th>
+                            <th class="text-start px-4">Attachment</th>
                             <th class="text-start px-4">Status</th>
                             <th class="text-start px-4">Actions</th> <!-- New column for actions -->
                         </tr>
@@ -257,6 +270,13 @@
                             <td class="  px-4 py-2">{{ application.from_date }}
                             </td>
                             <td class="  px-4 py-2">{{ application.to_date }}</td>
+                            {% if application.attachment %}
+                                <td class="  px-4 py-2">
+                                    <a class="underline" style="color: blue;" href="{{ application.attachment.url }}" target="_blank" >Attachment</a>
+                                </td>
+                            {% else %}
+                                <td class="  px-4 py-2">-</td>
+                            {% endif %}
                             <td class="  px-4 py-2 font-semibold text-red-600">Pending</td>
                             <td class="  px-4 py-5 flex gap-5">
                                 <form method="post" action="{% url 'approve_leave' application.id %}">

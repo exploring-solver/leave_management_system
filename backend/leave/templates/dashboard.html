@@ -16,11 +16,19 @@
 </head>
 
 <body class="bg-gray-100">
-  {% if messages %}
+  <!-- {% if messages %}
   {% for message in messages %}
   {% if message.tags %}
   <script>alert("{{ message }}")</script> {% endif %}
   {% endfor %}
+  {% endif %} -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% endif %}">
+        {{ message }}
+        <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+      </div>
+    {% endfor %}
   {% endif %}
   <!-- Sidebar -->
   <div
@@ -160,7 +168,7 @@
       <br>
       <br>
       <form method="post" action="/dashboard/"
-        class="mt-2 mb-4 text-center flex flex-col items-start justify-center w-[90%] mx-auto ">
+        class="mt-2 mb-4 text-center flex flex-col items-start justify-center w-[90%] mx-auto " enctype="multipart/form-data">
         {% csrf_token %}
         <div class="relative h-11 w-full min-w-[200px]">
           <select id="leave_category" name="leave_category"
@@ -307,46 +315,46 @@
     }
   });
 
-  document.getElementById('from_date').addEventListener('change', function () {
-    var fromDate = new Date(this.value);
-    var toDateInput = document.getElementById('to_date');
-    var toDate = new Date(toDateInput.value);
-    var today = new Date();
+  // document.getElementById('from_date').addEventListener('change', function () {
+  //   var fromDate = new Date(this.value);
+  //   var toDateInput = document.getElementById('to_date');
+  //   var toDate = new Date(toDateInput.value);
+  //   var today = new Date();
     
-    if (fromDate < today) {
-      alert('Please select today or a future date for the From Date.');
-      this.value = '';
-      return;
-    }
+  //   if (fromDate < today) {
+  //     alert('Please select today or a future date for the From Date.');
+  //     this.value = '';
+  //     return;
+  //   }
 
-    var diffInDays = Math.floor((toDate - fromDate) / (1000 * 60 * 60 * 24));
+  //   var diffInDays = Math.floor((toDate - fromDate) / (1000 * 60 * 60 * 24));
 
-    if (diffInDays > 2) {
-      alert('The difference between From Date and To Date should not be more than 2 days.');
-      toDateInput.value = '';
-      return;
-    }
-  });
+  //   if (diffInDays > 2) {
+  //     alert('The difference between From Date and To Date should not be more than 2 days.');
+  //     toDateInput.value = '';
+  //     return;
+  //   }
+  // });
 
-  document.getElementById('to_date').addEventListener('change', function () {
-    var toDate = new Date(this.value);
-    var fromDate = new Date(document.getElementById('from_date').value);
-    var today = new Date();
+  // document.getElementById('to_date').addEventListener('change', function () {
+  //   var toDate = new Date(this.value);
+  //   var fromDate = new Date(document.getElementById('from_date').value);
+  //   var today = new Date();
 
-    if (toDate < today) {
-      alert('Please select today or a future date for the To Date.');
-      this.value = '';
-      return;
-    }
+  //   if (toDate < today) {
+  //     alert('Please select today or a future date for the To Date.');
+  //     this.value = '';
+  //     return;
+  //   }
 
-    var diffInDays = Math.floor((toDate - fromDate) / (1000 * 60 * 60 * 24));
+  //   var diffInDays = Math.floor((toDate - fromDate) / (1000 * 60 * 60 * 24));
 
-    if (diffInDays > 2) {
-      alert('The difference between From Date and To Date should not be more than 2 days.');
-      this.value = '';
-      return;
-    }
-  });
+  //   if (diffInDays > 2) {
+  //     alert('The difference between From Date and To Date should not be more than 2 days.');
+  //     this.value = '';
+  //     return;
+  //   }
+  // });
 
 
   //tab switching function

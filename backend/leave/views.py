@@ -150,6 +150,10 @@ def dashboard(request):
                 messages.info(request, 'Both dates should be the same for half-day leaves')
                 return redirect('dashboard')
 
+            if form.cleaned_data['leave_category'].leave_type == 'Casual Leave' and applied_leaves > 2:
+                messages.info(request, 'Number of Casual leaves applied can be only for 2 days.')
+                return redirect('dashboard')
+
             if from_date > to_date:
                 messages.info(request, 'Please Select Valid Dates')
                 return redirect('dashboard')
@@ -180,7 +184,7 @@ def dashboard(request):
 
             # Save the leave application
             leave_application.save()
-            messages.info(request, 'Your leave have been Submitted Successfully')
+            messages.success(request, 'Leave Application Submitted Successfully')
             return redirect('dashboard')  # Redirect to dashboard after applying for leave
     else:
         form = LeaveApplicationForm()
@@ -438,7 +442,7 @@ def approve_leave(request, application_id):
     leave_application.past = True
     leave_application.admin_remark = request.POST.get('admin_remark', '')
     leave_application.save()
-    messages.info(request, 'Leave Application Approved Successfully')
+    messages.success(request, 'Leave Application Approved Successfully')
     return redirect('admin_dashboard')
 
 @login_required
