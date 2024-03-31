@@ -15,6 +15,36 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
 </head>
 
+
+<style>
+  .notification {
+    position: relative;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 0.25rem;
+  }
+
+  .notification.success {
+    color: #155724; /* Green color for success messages */
+    background-color: #d4edda; /* Light green background color for success messages */
+    border: 1px solid #c3e6cb; /* Border color for success messages */
+  }
+
+  .notification.info {
+    color: #721c24; /* Red color for info messages */
+    background-color: #f8d7da; /* Light red background color for info messages */
+    border: 1px solid #f5c6cb; /* Border color for info messages */
+  }
+
+  .notification .close {
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+    cursor: pointer;
+  }
+</style>
+
+
 <body class="bg-gray-100">
   <!-- {% if messages %}
   {% for message in messages %}
