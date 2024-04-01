@@ -325,6 +325,12 @@ def create_user(request):
             mobile_number=mobile_number,
             date_of_joining=date_of_joining
         )
+        
+        if role == User.Role.ADMIN:
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
+            
         # Determine leave categories dynamically based on role and date of joining
         leave_categories = ['Casual Leave', 'P-Leave', 'Medical Leave', 'Half Days']
         for category_name in leave_categories:
@@ -424,7 +430,7 @@ def create_user(request):
 
             # Create employee leaves record
             EmployeeLeaves.objects.create(emp_name=user.name, user=user, leave_category=category, leaves_remaining=leaves_remaining)
-
+        messages.success(request, f'User {name} created successfully.')
         return redirect('admin_dashboard')
 
     return HttpResponse("Method not allowed.")
