@@ -12,6 +12,33 @@
     <!-- script -->
     <script defer async src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
 </head>
+<style>
+    .notification {
+        position: relative;
+        padding: 1em;
+        margin: 1em;
+        border-radius: 0.25rem;
+    }
+
+    .notification.success {
+        color: #155724;
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+    }
+
+    .notification.info {
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+    }
+
+    .notification .close {
+        position: absolute;
+        right: 0.5em;
+        top: 0.5em;
+        cursor: pointer;
+    }
+</style>
 
 <body class="">
 
@@ -22,14 +49,7 @@
     {% endfor %}
     {% endif %} -->
 
-    {% if messages %}
-    {% for message in messages %}
-    <div class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% endif %}">
-        {{ message }}
-        <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
-    </div>
-    {% endfor %}
-    {% endif %}
+
 
     <div class="flex justify-between items-center flex-wrap bg-cyan-600 px-8 sticky top-0 z-50">
         <!-- Sidebar Content -->
@@ -68,6 +88,14 @@
             </button>
         </a>
     </div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% endif %}">
+        {{ message }}
+        <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+    {% endfor %}
+    {% endif %}
     <br>
     {% if user.is_authenticated and user.role == "ADMIN" %}
     <div class=" flex justify-between ">

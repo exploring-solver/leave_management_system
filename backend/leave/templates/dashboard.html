@@ -14,29 +14,49 @@
   <script defer async src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
 </head>
+<style>
+  .notification {
+    position: relative;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 0.25rem;
+  }
+
+  .notification.success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+  }
+
+  .notification.info {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .notification .close {
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+    cursor: pointer;
+  }
+</style>
 
 <body class="bg-gray-100">
   <!-- {% if messages %}
-  {% for message in messages %}
-  {% if message.tags %}
-  <script>alert("{{ message }}")</script> {% endif %}
-  {% endfor %}
-  {% endif %} -->
-  {% if messages %}
-  {% for message in messages %}
-  <div class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% endif %}">
-    {{ message }}
-    <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
-  </div>
-  {% endfor %}
-  {% endif %}
-  <!-- Sidebar -->
-
-
-
-  <!-- Main Content -->
-  <div class="flex flex-col flex-1">
-    <!-- Top Navbar with Hamburger Icon -->
+    {% for message in messages %}
+    {% if message.tags %}
+    <script>alert("{{ message }}")</script> {% endif %}
+    {% endfor %}
+    {% endif %} -->
+    
+    <!-- Sidebar -->
+    
+    
+    
+    <!-- Main Content -->
+    <div class="flex flex-col flex-1">
+      <!-- Top Navbar with Hamburger Icon -->
     <div class="bg-white text-black p-4 flex shadow-xl gap-[20%] items-start">
       <div class="flex gap-20">
         <button id="openSidebarBtn" class="mr-4 text-black">
@@ -49,6 +69,15 @@
       <h1 class="text-xl text-[#192f59] font-semibold">ONLINE LEAVE PORTAL</h1>
     </div>
     <!-- sidebar  -->
+    {% if messages %}
+    {% for message in messages %}
+    <div
+      class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% endif %}">
+      {{ message }}
+      <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+    {% endfor %}
+    {% endif %}
     <div class="flex justify-between">
       <nav
         class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal bg-white shadow-xl text-blue-gray-700">
@@ -110,7 +139,7 @@
         {% if user.is_authenticated %}
         <!-- <h1 class="text-2xl font-semibold mt-8 mb-4 text-center">Welcome to Dashboard</h1> -->
         <div
-          class="flex flex-col justify-between mx-auto bg-zinc-300 py-10 !bg-cyan-100  rounded shadow px-[10%] gap-10">
+        class="flex flex-col justify-between mx-auto bg-zinc-300 py-10 !bg-cyan-100  rounded shadow px-[10%] gap-10">
           <div class="flex justify-between">
             <p class=""> <span class="text-blue-700 font-medium">Name:</span> {{ user.name }}</p>
             <p class=""> <span class="text-blue-700 font-medium">Employee ID:</span> {{ user.emp_code }}</p>
@@ -158,7 +187,7 @@
           <!-- </div> -->
           <div class="flex justify-between flex-wrap gap-5">
             {% for category, total_leaves in total_leaves.items %}
-            <div class="flex gap-2 text-lg bg-white w-[20%]">
+            <div class="flex gap-2 text-lg bg-white w-[20%] ">
               {% for leave in employee_leaves %}
               {% if leave.leave_category.leave_type == category %}
               <div
@@ -183,29 +212,44 @@
               class="mt-2 mb-4 text-center flex flex-col items-start justify-center w-[90%] mx-auto "
               enctype="multipart/form-data">
               {% csrf_token %}
-              <div class="relative h-11 w-full min-w-[200px]">
-                <select id="leave_category" name="leave_category"
-                  class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
-                  {% for category in leave_categories %}
-                  <option value="{{ category.leave_category.id }}">
-                    {{ category.leave_category.leave_type }}
-                  </option>
-                  {% endfor %}
-                </select>
-                <label for="leave_category"
-                  class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">Leave
+              <div class="w-96 flex flex-col items-start">
+                <label for="leave_category" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Choose
                   Category</label>
+                <div class="relative h-11 w-full min-w-[200px]">
+                  <select id="leave_category" name="leave_category"
+                    class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                    {% for category in leave_categories %}
+                    <option value="{{ category.leave_category.id }}">
+                      {{ category.leave_category.leave_type }}
+                    </option>
+                    {% endfor %}
+                  </select>
+                  <label for="leave_category"
+                    class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">Leave
+                    Category</label>
+                </div>
               </div>
               <br>
               <!-- Conditional display for half-day options -->
               <div id="half_day_options" class="flex flex-col items-start" style="display: none;">
-                <label class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Half Day Option:</label>
-                <input type="radio" id="first_half" name="which_half" value="FIRST_HALF">
-                <label for="first_half">First Half</label>
-                <input type="radio" id="second_half" name="which_half" value="SECOND_HALF">
-                <label for="second_half">Second Half</label>
+                <p class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Half Day Option:</p>
+                <div class="flex items-center mb-4">
+                  <input type="radio" id="first_half" name="which_half" value="FIRST_HALF"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                  <label for="first_half" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-700">First
+                    Half</label>
+
+                </div>
+                <div class="flex items-center mb-4">
+
+                  <input type="radio" id="second_half" name="which_half" value="SECOND_HALF"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                  <label for="second_half" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-700">Second
+                    Half</label>
+                </div>
               </div>
-              <div class="w-96">
+              <div class="w-96 flex flex-col items-start">
+                <label for="" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Description</label>
                 <div class="relative w-full min-w-[200px]">
                   <textarea id="description" name="description"
                     class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-400 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-400 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
@@ -226,8 +270,9 @@
                 <input type="date" id="to_date" name="to_date"
                   class="border border-gray-300 rounded px-2 py-1 outline-none" /><br />
               </div>
-              <div>
-                <label for="attachment"></label>
+              <div class="flex flex-col items-start">
+                <label for="attachment" class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Document
+                  Attachment</label>
                 <input type="file" name="attachment">
               </div>
               <br>
@@ -382,17 +427,17 @@
     {% endif %}
 </body>
 <script>
-  const openSidebarBtn = document.getElementById('openSidebarBtn');
-  const closeSidebarBtn = document.getElementById('closeSidebarBtn');
-  const sidebar = document.querySelector('.bg-gray-800');
+  // const openSidebarBtn = document.getElementById('openSidebarBtn');
+  // const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+  // const sidebar = document.querySelector('.bg-gray-800');
 
-  openSidebarBtn.addEventListener('click', () => {
-    sidebar.classList.remove('transform', '-translate-x-full');
-  });
+  // openSidebarBtn.addEventListener('click', () => {
+  //   sidebar.classList.remove('transform', '-translate-x-full');
+  // });
 
-  closeSidebarBtn.addEventListener('click', () => {
-    sidebar.classList.add('transform', '-translate-x-full');
-  });
+  // closeSidebarBtn.addEventListener('click', () => {
+  //   sidebar.classList.add('transform', '-translate-x-full');
+  // });
 
 
 
