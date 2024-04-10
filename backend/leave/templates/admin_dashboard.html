@@ -130,9 +130,9 @@
     {% if user.is_authenticated and user.role == "ADMIN" %}
     <div class="  sm:flex justify-between ">
         <nav id="sidebar"
-            class=" hidden flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700 shadow-xl max-h-screen top-20 sticky bg-white z-50">
-            <div role="button" onclick="showContent('home')" data-ripple-light="true"
-                class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+            class=" hidden flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700 shadow-xl sm:top-20 sticky bg-white z-40">
+            <div role="button"  onclick="showContent('home')" data-ripple-light="true"
+                class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                 <div class="grid mr-4 place-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
                         class="w-5 h-5">
@@ -143,8 +143,8 @@
                 </div>
                 Dashboard
             </div>
-            <div role="button" onclick="showContent('user_manage')" data-ripple-light="true"
-                class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+            <div role="button"  onclick="showContent('user_manage')" data-ripple-light="true"
+                class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                 <div class="grid mr-4 place-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
                         class="w-5 h-5">
@@ -155,8 +155,8 @@
                 </div>
                 User Management
             </div>
-            <div role="button" onclick="showContent('user')" data-ripple-light="true"
-                class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+            <div role="button"  onclick="showContent('user')" data-ripple-light="true"
+                class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                 <div class="grid mr-4 place-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
                         class="w-5 h-5">
@@ -168,8 +168,8 @@
                 Create User
             </div>
             <div class="relative block w-full">
-                <div role="button"
-                    class="flex items-center w-full p-0 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gra700900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                <div role="button" 
+                    class="flex items-center w-full p-0 leading-tight transition-a ll rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gra700900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                     <button type="button"
                         class="flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-blue-gray-700 hover:text-blue-gray-900">
                         <div class="grid mr-4 place-items-center">
@@ -191,8 +191,8 @@
                         class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700">
                         <nav
                             class="flex min-w-[240px] flex-col gap-1 p-0 font-sans text-base font-normal text-blue-gray-700">
-                            <div role="button" onclick="showContent('pending')" data-ripple-light="true"
-                                class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                            <div role="button"  onclick="showContent('pending')" data-ripple-light="true"
+                                class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="3" stroke="currentColor" aria-hidden="true" class="w-5 h-3">
@@ -202,8 +202,8 @@
                                 </div>
                                 Pending Leaves
                             </div>
-                            <div role="button" onclick="showContent('disapproved')" data-ripple-light="true"
-                                class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                            <div role="button"  onclick="showContent('disapproved')" data-ripple-light="true"
+                                class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="3" stroke="currentColor" aria-hidden="true" class="w-5 h-3">
@@ -213,8 +213,8 @@
                                 </div>
                                 Disapproved Leaves
                             </div>
-                            <div role="button" onclick="showContent('approved')" data-ripple-light="true"
-                                class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                            <div role="button"  onclick="showContent('approved')" data-ripple-light="true"
+                                class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="3" stroke="currentColor" aria-hidden="true" class="w-5 h-3">
@@ -224,8 +224,8 @@
                                 </div>
                                 Approved Leaves
                             </div>
-                            <div role="button" onclick="showContent('empleaves')" data-ripple-light="true"
-                                class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                            <div role="button"  onclick="showContent('empleaves')" data-ripple-light="true"
+                                class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="3" stroke="currentColor" aria-hidden="true" class="w-5 h-3">
@@ -235,8 +235,8 @@
                                 </div>
                                 Employee Leaves
                             </div>
-                            <div role="button" onclick="showContent('leavecat')" data-ripple-light="true"
-                                class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                            <div role="button"  onclick="showContent('leavecat')" data-ripple-light="true"
+                                class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="3" stroke="currentColor" aria-hidden="true" class="w-5 h-3">
@@ -251,8 +251,8 @@
                 </div>
             </div>
             <a href="/logout/" data-ripple-light="true">
-                <div role="button" data-ripple-light="true"
-                    class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                <div role="button"  data-ripple-light="true"
+                    class="flex items-center w-full p-3 leading-tight  transition-a ll rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                     <div class="grid mr-4 place-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                             aria-hidden="true" class="w-5 h-5">
@@ -664,7 +664,7 @@
         <br>
 
         <!-- Approved Leave Applications Section -->
-        <div id="approved" class=" hidden content bg-white rounded shadow p-6 overflow-x-auto">
+        <div id="approved" class=" hidden content bg-white rounded shadow p-6 overflow-x-auto sm:w-full">
             <h2 class="text-xl text-gray-600 font-semibold mb-4">Approved Leave Applications</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
 
@@ -695,7 +695,7 @@
         </div>
         <br>
         <!-- Disapproved Leave Applications Section -->
-        <div id="disapproved" class="content hidden bg-white rounded shadow p-6 overflow-x-auto">
+        <div id="disapproved" class="content hidden bg-white rounded shadow p-6 overflow-x-auto sm:w-full">
             <h2 class="text-xl mb-4">Disapproved Leave Applications</h2>
             <hr class="bg-gray-600 py-[1px] w-[90%] mb-5">
 
