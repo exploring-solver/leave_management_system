@@ -81,7 +81,7 @@
 
 
 
-    <div class="flex justify-between items-center flex-wrap bg-cyan-600 px-8 sticky top-0 z-50">
+    <div class="flex justify-between items-center flex-wrap bg-cyan-600 px-8 sticky top-0 z-50 py-3">
         <!-- Sidebar Content -->
         <!-- <div class="h-full w-64 px-4 bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5 z-40"
             id="sidebar">
@@ -128,9 +128,9 @@
     {% endif %}
     <br>
     {% if user.is_authenticated and user.role == "ADMIN" %}
-    <div class=" flex justify-between ">
-        <nav
-            class="flex flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700 shadow-xl max-h-screen top-20 sticky">
+    <div class="  sm:flex justify-between ">
+        <nav id="sidebar"
+            class=" hidden flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700 shadow-xl max-h-screen top-20 sticky bg-white z-50">
             <div role="button" onclick="showContent('home')" data-ripple-light="true"
                 class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                 <div class="grid mr-4 place-items-center">
@@ -304,7 +304,7 @@
 
             </div>
             <br>
-            <div class=" bg-white rounded shadow p-6">
+            <div class=" bg-white rounded shadow p-6 overflow-x-auto">
                 <h2 class="text-xl mb-4 uppercase">Latest Leave Applications</h2>
                 <hr class="bg-black py-[1px] w-[90%] mb-5">
 
@@ -386,7 +386,7 @@
         </div>
         <!-- Existing Users Section -->
         <div id="user_manage"
-            class="content hidden rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5 h-full w-full">
+            class="content hidden rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5 h-full overflow-x-auto">
             <h2 class="text-xl mb-4 font-semibold uppercase">Employees info</h2>
             <input type="text" id="userFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
                 placeholder="Filter by Name or Email" />
@@ -442,7 +442,7 @@
         </div>
 
         <!-- Create New User Section -->
-        <div id="user" class="content hidden mb-4 bg-white rounded-xl shadow-xl px-6 py-2 w-1/2 start-0">
+        <div id="user" class="content hidden mb-4 bg-white rounded-xl shadow-xl px-6 py-2 sm:w-1/2 start-0">
             <h2 class="text-xl mb-4 border-b-2 w-fit pb-4 border-black uppercase">employee Info</h2>
             <form method="post" action="/create-user/" class="space-y-4">
                 {% csrf_token %}
@@ -582,11 +582,11 @@
 
         <br>
         <!-- Pending Leaves  -->
-        <div id="pending" class="content hidden bg-white rounded shadow p-6">
+        <div id="pending" class="content hidden bg-white rounded shadow p-6 overflow-x-auto">
             <h2 class="text-xl mb-4 uppercase">Latest Leave Applications</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
 
-            <table class="w-full table">
+            <table class="w-full">
                 <thead>
                     <tr class="text-blue-900">
                         <th class="text-start px-4">User</th>
@@ -664,7 +664,7 @@
         <br>
 
         <!-- Approved Leave Applications Section -->
-        <div id="approved" class=" hidden content bg-white rounded shadow p-6 w-full">
+        <div id="approved" class=" hidden content bg-white rounded shadow p-6 overflow-x-auto">
             <h2 class="text-xl text-gray-600 font-semibold mb-4">Approved Leave Applications</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
 
@@ -695,7 +695,7 @@
         </div>
         <br>
         <!-- Disapproved Leave Applications Section -->
-        <div id="disapproved" class="content hidden bg-white rounded shadow p-6 w-full">
+        <div id="disapproved" class="content hidden bg-white rounded shadow p-6 overflow-x-auto">
             <h2 class="text-xl mb-4">Disapproved Leave Applications</h2>
             <hr class="bg-gray-600 py-[1px] w-[90%] mb-5">
 
@@ -726,7 +726,7 @@
         </div>
         <br>
         <!-- Employee Leaves Section -->
-        <div id="empleaves" data-ripple-light="true" class="content hidden rounded shadow p-6 w-2/3">
+        <div id="empleaves" data-ripple-light="true" class="content hidden rounded shadow p-6 overflow-x-auto sm:w-2/3">
             <h2 class="text-xl mb-4">Employee Leaves</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
             <input type="text" id="employeeLeaveFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
@@ -752,7 +752,7 @@
         </div>
         <br>
         <!-- Leave Categories Section -->
-        <div class="bg-white rounded shadow p-6 hidden content w-full" id="leavecat">
+        <div class="bg-white rounded shadow p-6 hidden content overflow-x-auto sm:w-full" id="leavecat">
             <h2 class="text-xl mb-4">Leave Categories</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
             <table class="w-full table">
@@ -846,6 +846,7 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('sm:flex');
         }
 
 
