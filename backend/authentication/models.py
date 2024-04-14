@@ -37,7 +37,18 @@ class CustomUserManager(BaseUserManager):
         return user
     
     
-
+        
+class Department(models.Model):
+        department = models.CharField(max_length=100)
+        
+            
+        def __str__(self):
+            return self.department
+        
+        class Meta:
+            db_table = 'departments'  # This sets the table name to 'users'
+            verbose_name_plural = "Departments"
+            
 
 
 class User(AbstractUser):
@@ -53,12 +64,6 @@ class User(AbstractUser):
     class Gender(models.TextChoices):
         MALE = "MALE", 'Male'
         FEMALE = "FEMALE", 'Female'
-
-    # first arguement is stored in database, second is its human readable form that will be displayed in dropdowns
-    class Department(models.TextChoices):
-        COMPUTER = "COMPUTER", 'Computer'
-        COMMERCE = "COMMERCE", 'Commerce'
-        PHYSICS = "PHYSICS", 'Physics'
 
 
     # fields coming from parent class AbstractUSer that will be used as-it-is in our custom User model are :
@@ -78,7 +83,8 @@ class User(AbstractUser):
     
     # other fields:
     emp_code = models.CharField(max_length=30, blank=True)
-    dept = models.CharField(max_length=50, choices=Department.choices, blank=True)
+    # ForeignKey for department
+    dept = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
     address = models.CharField(max_length=150, blank=True)
     city = models.CharField(max_length=50, blank=True)
     country = models.CharField(max_length=50, blank=True)
@@ -101,3 +107,4 @@ class User(AbstractUser):
     class Meta:
         db_table = 'users'  # This sets the table name to 'users'
         verbose_name_plural = "Users"
+        

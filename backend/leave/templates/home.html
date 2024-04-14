@@ -15,7 +15,74 @@
     </style>
 </head>
 
-<body id="home" class="bg-zinc-100 flex items-center justify-center h-screen">
+<style>
+    .notification {
+      position: relative;
+      padding: 1em;
+      margin: 1em;
+      border-radius: 0.25rem;
+    }
+  
+    .notification.success {
+      color: #155724;
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+    }
+  
+    .notification.info {
+      color: #721c24;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .notification .close {
+      position: absolute;
+      right: 0.5em;
+      top: 0.5em;
+      cursor: pointer;
+    }
+  </style>
+  
+  
+  <style>
+    .notification {
+      position: relative;
+      padding: 1em;
+      margin: 1em;
+      border-radius: 0.25rem;
+    }
+  
+    .notification.success {
+      color: #155724; /* Green color for success messages */
+      background-color: #d4edda; /* Light green background color for success messages */
+      border: 1px solid #c3e6cb; /* Border color for success messages */
+    }
+  
+    .notification.info {
+      color: #721c24; /* Red color for info messages */
+      background-color: #f8d7da; /* Light red background color for info messages */
+      border: 1px solid #f5c6cb; /* Border color for info messages */
+    }
+  
+    .notification .close {
+      position: absolute;
+      right: 0.5em;
+      top: 0.5em;
+      cursor: pointer;
+    }
+  </style>
+
+<body id="home" class="bg-zinc-100 flex flex-col items-center justify-center h-screen">
+    
+    {% if messages %}
+  {% for message in messages %}
+  <div
+    class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% endif %} w-screen text-center absolute top-0">
+    {{ message }}
+    <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+  </div>
+  {% endfor %}
+  {% endif %}
     <div class="flex flex-col gap-8">
         <h1 class="text-center text-3xl">Employee Login</h1>
         <div class="bg-white rounded shadow w-[300px] p-8">

@@ -167,6 +167,18 @@
                 </div>
                 Create User
             </div>
+            <div role="button"  onclick="showContent('depts')" data-ripple-light="true"
+                class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                <div class="grid mr-4 place-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                        class="w-5 h-5">
+                        <path fill-rule="evenodd"
+                            d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                Manage Departments
+            </div>
             <div class="relative block w-full">
                 <div role="button" 
                     class="flex items-center w-full p-0 leading-tight transition-a ll rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gra700900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
@@ -299,7 +311,7 @@
                 <div
                     class="bg-white text-gray-600 rounded shadow-xl px-6 py-2  mx-auto w-[90%] md:w-[40%] border-b-4 border-opacity-70 border-cyan-400 ">
                     <h2 class="text-xl mb-4 font-medium">New Leave Applications</h2>
-                    <p class="text-4xl">{{ new_leave_applications }}</p>
+                    <p class="text-4xl">{{ new_leave_applications_count }}</p>
                 </div>
 
             </div>
@@ -315,19 +327,28 @@
                             <th class="text-start px-4">Leave Category</th>
                             <th class="text-start px-4">From Date</th>
                             <th class="text-start px-4">To Date</th>
+                            <th class="text-start px-4">No. of Days</th>
+                            <th class="text-start px-4">Date of Application</th>
                             <th class="text-start px-4">Attachment</th>
                             <th class="text-start px-4">Status</th>
                             <th class="text-start px-4">Actions</th> <!-- New column for actions -->
                         </tr>
                     </thead>
                     <tbody>
-                        {% for application in all_leave_applications_pending %}
+                        {% for application in new_leave_applications %}
                         <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
                             <td class="  px-4 py-2 font-medium text-blue-600">{{ application.user }}</td>
-                            <td class="  px-4 py-2">{{ application.leave_category}}</td>
-                            <td class="  px-4 py-2">{{ application.from_date }}
+                            <td class="px-4 py-2">
+                                {% if application.leave_category.leave_type == 'Half Days' %}
+                                    {{ application.leave_category.leave_type }} ({{ application.which_half }})
+                                {% else %}
+                                    {{ application.leave_category.leave_type }}
+                                {% endif %}
                             </td>
-                            <td class="  px-4 py-2">{{ application.to_date }}</td>
+                            <td class="px-4 py-2">{{ application.from_date }}</td>
+                            <td class="px-4 py-2">{{ application.to_date }}</td>
+                            <td class="px-4 py-2">{{ application.duration }}</td>
+                            <td class="px-4 py-2">{{ application.applied_on }}</td>
                             {% if application.attachment %}
                             <td class="  px-4 py-2">
                                 <a class="underline" style="color: blue;" href="{{ application.attachment.url }}"
@@ -518,12 +539,13 @@
                 <div class="relative h-11 min-w-[200px]">
                     <!-- <label for="dept" class="block">Department:</label> -->
                     <select id="dept" name="dept"
-                        class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                            class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
                         <option value="">-Select Department-</option>
-                        {% for department in user.Department.choices %}
-                        <option value="{{ department.0 }}">{{ department.1 }}</option>
+                        {% for department in departments %}
+                        <option value="{{ department }}">{{ department.department }}</option>
                         {% endfor %}
                     </select>
+
                     <label
                         class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-opacity-80 peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-opacity-80 peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         Select a Department
@@ -578,6 +600,39 @@
             </form>
         </div>
 
+        <!-- Add Department Section -->
+        <div id="depts" class="hidden content">
+            <div id="add-department" class="mb-4 bg-white rounded-xl shadow-xl px-6 py-2 sm:w-1/2 start-0">
+                <h2 class="text-xl mb-4 border-b-2 w-fit pb-4 border-black uppercase">Add Department</h2>
+                <form method="POST" action="/add_department/" class="space-y-4">
+                    {% csrf_token %}
+                    <div class="relative h-11 min-w-[200px]">
+                        <input type="text" id="department" name="department"
+                            class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                        <label for="department"
+                            class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Department Name:
+                        </label>
+                    </div>
+                    <br>
+                    <button type="submit" data-ripple-light="true"
+                        class="w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                        Add Department
+                    </button>
+                </form>
+            </div>
+
+            <!-- Listed Departments Section -->
+            <div id="listed-departments" class=" mb-4 bg-white rounded-xl shadow-xl px-6 py-2 sm:w-1/2 start-0">
+                <h2 class="text-xl mb-4 border-b-2 w-fit pb-4 border-black uppercase">Listed Departments</h2>
+                <ul>
+                    {% for department in departments %}
+                    <li>{{ department.department }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
 
 
         <br>
@@ -593,6 +648,7 @@
                         <th class="text-start px-4">Leave Category</th>
                         <th class="text-start px-4">From Date</th>
                         <th class="text-start px-4">To Date</th>
+                        <th class="text-start px-4">Date of Application</th>
                         <th class="text-start px-4">Attachment</th>
                         <th class="text-start px-4">Status</th>
                         <th class="text-start px-4">Actions</th> <!-- New column for actions -->
@@ -602,10 +658,17 @@
                     {% for application in all_leave_applications_pending %}
                     <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
                         <td class="  px-4 py-2 font-medium text-blue-600">{{ application.user }}</td>
-                        <td class="  px-4 py-2">{{ application.leave_category}}</td>
+                        <td class="px-4 py-2">
+                            {% if application.leave_category.leave_type == 'Half Days' %}
+                                {{ application.leave_category.leave_type }} ({{ application.which_half }})
+                            {% else %}
+                                {{ application.leave_category.leave_type }}
+                            {% endif %}
+                        </td>
                         <td class="  px-4 py-2">{{ application.from_date }}
                         </td>
                         <td class="  px-4 py-2">{{ application.to_date }}</td>
+                        <td class="px-4 py-2">{{ application.applied_on }}</td>
                         {% if application.attachment %}
                         <td class="  px-4 py-2">
                             <a class="underline" style="color: blue;" href="{{ application.attachment.url }}"
@@ -675,6 +738,7 @@
                         <th class="text-start px-4">Leave Category</th>
                         <th class="text-start px-4">From Date</th>
                         <th class="text-start px-4">To Date</th>
+                        <th class="text-start px-4">Date of Application</th>
                         <th class="text-start px-4">Status</th>
                     </tr>
                 </thead>
@@ -683,9 +747,16 @@
                     <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
                         <td class="  px-4 py-2 text-blue-600">{{ application.user }}
                         </td>
-                        <td class="  px-4 py-2">{{ application.leave_category }}</td>
+                        <td class="px-4 py-2">
+                            {% if application.leave_category.leave_type == 'Half Days' %}
+                                {{ application.leave_category.leave_type }} ({{ application.which_half }})
+                            {% else %}
+                                {{ application.leave_category.leave_type }}
+                            {% endif %}
+                        </td>
                         <td class="  px-4 py-2">{{ application.from_date }}</td>
                         <td class="  px-4 py-2">{{ application.to_date }}</td>
+                        <td class="px-4 py-2">{{ application.applied_on }}</td>
                         <td class="  px-4 py-2 text-green-500 font-medium">Approved
                         </td>
                     </tr>
@@ -706,6 +777,7 @@
                         <th class="font-bold text-start px-4">Leave Category</th>
                         <th class="font-bold text-start px-4">From Date</th>
                         <th class="font-bold text-start px-4">To Date</th>
+                        <th class="text-start px-4">Date of Application</th>
                         <th class="font-bold text-start px-4">Status</th>
                     </tr>
                 </thead>
@@ -714,9 +786,16 @@
                     <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
                         <td class="  px-4 py-2 text-blue-600">{{ application.user }}
                         </td>
-                        <td class="  px-4 py-2">{{ application.leave_category }}</td>
+                        <td class="px-4 py-2">
+                            {% if application.leave_category.leave_type == 'Half Days' %}
+                                {{ application.leave_category.leave_type }} ({{ application.which_half }})
+                            {% else %}
+                                {{ application.leave_category.leave_type }}
+                            {% endif %}
+                        </td>
                         <td class="  px-4 py-2">{{ application.from_date }}</td>
                         <td class="  px-4 py-2">{{ application.to_date }}</td>
+                        <td class="px-4 py-2">{{ application.applied_on }}</td>
                         <td class="  px-4 py-2 text-red-600 font-medium">Disapproved
                         </td>
                     </tr>
@@ -737,19 +816,36 @@
                         <th class="px-4 text-start">User</th>
                         <th class="px-4 text-start">Leave Category</th>
                         <th class="px-4 text-start">Leaves Remaining</th>
+                        <th class="px-4 text-start">Edit Leaves</th>
+                        <th class="px-4 text-start">Update Leaves</th>
                     </tr>
                 </thead>
                 <tbody id="employeeLeaveTableBody">
                     {% for leaves in all_employee_leaves %}
-                    <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
-                        <td class="border text-blue-600 border-gray-300  px-4 py-2">{{ leaves.user }}</td>
-                        <td class="  px-4 py-2">{{ leaves.leave_category }}</td>
-                        <td class="  px-4 py-2">{{ leaves.leaves_remaining }}</td>
-                    </tr>
+                    <form method="POST" action="{% url 'edit_employee_leave' %}">
+                        {% csrf_token %}
+                        <tr class="{% cycle 'bg-gray-50' 'bg-white' %}">
+                            <td class="border text-blue-600 border-gray-300 px-4 py-2">{{ leaves.user }}</td>
+                            <td class="px-4 py-2">{{ leaves.leave_category }}</td>
+                            <td class="px-4 py-2">{{ leaves.leaves_remaining }}</td>
+                            <td class="px-4 py-2">
+                                <input type="hidden" name="user_id" value="{{ leaves.user.id }}">
+                                <input type="hidden" name="leave_category_id" value="{{ leaves.leave_category.id }}">
+                                <input type="number" name="leaves_remaining" value="{{ leaves.leaves_remaining }}"
+                                    class="border-gray-300 border w-full px-3 py-2 rounded" />
+                            </td>
+                            <td>
+                                <button type="submit"
+                                    class="mt-4 w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                    Update Leaves
+                                </button>
+                            </td>
+                        </tr>
+                    </form>
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
+        </div>        
         <br>
         <!-- Leave Categories Section -->
         <div class="bg-white rounded shadow p-6 hidden content overflow-x-auto sm:w-full" id="leavecat">
@@ -772,6 +868,35 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <!-- Add Leave Type Section -->
+            <div id="add-leave-type" class="mb-4 bg-white rounded-xl shadow-xl px-6 py-2 sm:w-1/2 start-0">
+                <h2 class="text-xl mb-4 border-b-2 w-fit pb-4 border-black uppercase">Add Leave Type</h2>
+                <form method="POST" action="/add_leave_type/" class="space-y-4">
+                    {% csrf_token %}
+                    <div class="relative h-11 min-w-[200px]">
+                        <input type="text" id="leave_type" name="leave_type"
+                            class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                        <label for="leave_type"
+                            class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Leave Type Name:
+                        </label>
+                    </div>
+                    <div class="relative h-11 min-w-[200px]">
+                        <input type="number" id="default_leaves" name="default_leaves" required
+                            class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
+                        <label for="default_leaves"
+                            class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Default Leaves:
+                        </label>
+                        <small class="text-red-600">Note: The default value of leaves will be allotted to all existing employees.</small>
+                    </div>
+                    <br>
+                    <button type="submit" data-ripple-light="true"
+                        class="w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                        Add Leave Type
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -802,6 +927,7 @@
             });
 
         // Filter functionality for Leave Applications table
+        /*
         document
             .getElementById("leaveFilter")
             .addEventListener("input", function () {
@@ -820,6 +946,7 @@
                     }
                 });
             });
+            */
         // Filter functionality for Employee Leaves table
         document
             .getElementById("employeeLeaveFilter")

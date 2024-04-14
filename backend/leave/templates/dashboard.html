@@ -342,13 +342,13 @@
           </div>
           <br>
           <!-- Conditional display for half-day options -->
-          <div id="half_day_options" class="flex flex-col items-start" style="display: none;">
+          <!-- <div id="half_day_options" class="flex flex-col items-start" style="display: none;">
             <label class="mr-2 pb-2 border-b-2 border-black w-fit mb-4 text-lg">Half Day Option:</label>
             <input type="radio" id="first_half" name="which_half" value="FIRST_HALF">
             <label for="first_half">First Half</label>
             <input type="radio" id="second_half" name="which_half" value="SECOND_HALF">
             <label for="second_half">Second Half</label>
-          </div>
+          </div> -->
           <div class="w-96">
             <div class="relative w-full min-w-[200px]">
               <textarea id="description" name="description"
@@ -471,14 +471,40 @@
 
 
 
+
   // Show half-day options when "Half Days" is selected
   document.getElementById('leave_category').addEventListener('change', function () {
-    // console.log(this.value);
-    const halfDayOptions = document.getElementById('half_day_options');
-    if (this.value === '4') {
-      halfDayOptions.style.display = 'flex';
-    } else {
-      halfDayOptions.style.display = 'none';
+        const halfDayOptions = document.getElementById('half_day_options');
+        if (this.options[this.selectedIndex].text === 'Half Days') { // Check by option text
+            halfDayOptions.style.display = 'flex';
+        } else {
+            halfDayOptions.style.display = 'none';
+        }
+        validateHalfDayDates(); // Validate dates on change
+    });
+
+    // Validate dates for half-day option
+    function validateHalfDayDates() {
+        const leaveCategory = document.getElementById('leave_category');
+        if (leaveCategory.options[leaveCategory.selectedIndex].text === 'Half Days') {
+            const fromDate = new Date(document.getElementById('from_date').value);
+            const toDate = new Date(document.getElementById('to_date').value);
+            if (fromDate.toDateString() !== toDate.toDateString()) {
+                alert('For half-day option, please select the same dates for "From Date" and "To Date".');
+                return false;
+            }
+        }
+        return true;
+    }
+
+  // Listen for change events on date inputs
+  // document.getElementById('from_date').addEventListener('change', validateHalfDayDates);
+  document.getElementById('to_date').addEventListener('change', validateHalfDayDates);
+
+  // Validate on form submission
+  document.querySelector('form').addEventListener('submit', function (event) {
+    if (!validateHalfDayDates()) {
+      event.preventDefault(); // Prevent form submission
     }
   });
 
