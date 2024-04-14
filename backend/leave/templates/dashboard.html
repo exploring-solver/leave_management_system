@@ -33,7 +33,7 @@
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
   }
-  
+
   .notification .close {
     position: absolute;
     right: 0.5em;
@@ -52,15 +52,21 @@
   }
 
   .notification.success {
-    color: #155724; /* Green color for success messages */
-    background-color: #d4edda; /* Light green background color for success messages */
-    border: 1px solid #c3e6cb; /* Border color for success messages */
+    color: #155724;
+    /* Green color for success messages */
+    background-color: #d4edda;
+    /* Light green background color for success messages */
+    border: 1px solid #c3e6cb;
+    /* Border color for success messages */
   }
 
   .notification.info {
-    color: #721c24; /* Red color for info messages */
-    background-color: #f8d7da; /* Light red background color for info messages */
-    border: 1px solid #f5c6cb; /* Border color for info messages */
+    color: #721c24;
+    /* Red color for info messages */
+    background-color: #f8d7da;
+    /* Light red background color for info messages */
+    border: 1px solid #f5c6cb;
+    /* Border color for info messages */
   }
 
   .notification .close {
@@ -79,17 +85,17 @@
     <script>alert("{{ message }}")</script> {% endif %}
     {% endfor %}
     {% endif %} -->
-    
-    <!-- Sidebar -->
-    
-    
-    
-    <!-- Main Content -->
-    <div class="flex flex-col flex-1">
-      <!-- Top Navbar with Hamburger Icon -->
+
+  <!-- Sidebar -->
+
+
+
+  <!-- Main Content -->
+  <div class="flex flex-col flex-1">
+    <!-- Top Navbar with Hamburger Icon -->
     <div class="bg-white text-black p-4 flex shadow-xl gap-[20%] items-start">
       <div class="flex gap-20">
-        <button id="openSidebarBtn" class="mr-4 text-black">
+        <button id="openSidebarBtn" onclick="toggleSidebar()" class="mr-4 text-black">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
@@ -101,16 +107,15 @@
     <!-- sidebar  -->
     {% if messages %}
     {% for message in messages %}
-    <div
-      class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% endif %}">
+    <div class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'info' %}info{% endif %}">
       {{ message }}
       <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
     </div>
     {% endfor %}
     {% endif %}
-    <div class="flex justify-between">
-      <nav
-        class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal bg-white shadow-xl text-blue-gray-700">
+    <div class="sm:flex justify-between">
+      <nav id="sidebar"
+        class="hidden min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal bg-white shadow-xl text-blue-gray-700 sm:sticky fixed sm:top-20">
         <div role="button" onclick="showContent('dashboard')" data-ripple-light="true"
           class="flex items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-100 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-100 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-100">
           <div class="grid mr-4 place-items-center">
@@ -165,11 +170,11 @@
         </a>
       </nav>
       <!-- Main Content Area -->
-      <div id="dashboard" class="p-4 content w-full">
+      <div id="dashboard" class=" content w-full">
         {% if user.is_authenticated %}
         <!-- <h1 class="text-2xl font-semibold mt-8 mb-4 text-center">Welcome to Dashboard</h1> -->
         <div
-        class="flex flex-col justify-between mx-auto bg-zinc-300 py-10 !bg-cyan-100  rounded shadow px-[10%] gap-10">
+          class="flex flex-col justify-between mx-auto bg-zinc-300 py-10 !bg-cyan-100  rounded shadow px-[10%] gap-10">
           <div class="flex justify-between">
             <p class=""> <span class="text-blue-700 font-medium">Name:</span> {{ user.name }}</p>
             <p class=""> <span class="text-blue-700 font-medium">Employee ID:</span> {{ user.emp_code }}</p>
@@ -217,11 +222,11 @@
           <!-- </div> -->
           <div class="flex justify-between flex-wrap gap-5">
             {% for category, total_leaves in total_leaves.items %}
-            <div class="flex gap-2 text-lg bg-white w-[20%] ">
+            <div class="flex flex-wrap gap-2 text-lg bg-white sm:w-1/6 w-1/3">
               {% for leave in employee_leaves %}
               {% if leave.leave_category.leave_type == category %}
               <div
-                class="bg-white text-gray-600 rounded shadow-xl px-6 py-2   border-b-4 border-opacity-70 border-cyan-400 w-full flex flex-col gap-3">
+                class="bg-white text-gray-600 rounded shadow-xl p-2    border-b-4 border-opacity-70 border-cyan-400 w-full flex flex-col gap-3">
                 <p class="font-semibold text-gray-600 ">{{leave.leave_category}}</p>
                 <p class=" text-green-700">Allotted: {{ total_leaves }}</p>
                 <p class="text-red-500">Remaining: {{leave.leaves_remaining}}</p>
@@ -374,7 +379,7 @@
             <label for="attachment"></label>
             <input type="file" name="attachment">
           </div>
-
+          <br><br>
           <button type="submit" data-ripple-light="true"
             class="select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
             Submit Application
@@ -457,45 +462,40 @@
     {% endif %}
 </body>
 <script>
-  // const openSidebarBtn = document.getElementById('openSidebarBtn');
-  // const closeSidebarBtn = document.getElementById('closeSidebarBtn');
-  // const sidebar = document.querySelector('.bg-gray-800');
-
-  // openSidebarBtn.addEventListener('click', () => {
-  //   sidebar.classList.remove('transform', '-translate-x-full');
-  // });
-
-  // closeSidebarBtn.addEventListener('click', () => {
-  //   sidebar.classList.add('transform', '-translate-x-full');
-  // });
+  //for sidebar 
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('hidden');
+    sidebar.classList.toggle('sm:flex');
+  }
 
 
 
 
   // Show half-day options when "Half Days" is selected
   document.getElementById('leave_category').addEventListener('change', function () {
-        const halfDayOptions = document.getElementById('half_day_options');
-        if (this.options[this.selectedIndex].text === 'Half Days') { // Check by option text
-            halfDayOptions.style.display = 'flex';
-        } else {
-            halfDayOptions.style.display = 'none';
-        }
-        validateHalfDayDates(); // Validate dates on change
-    });
-
-    // Validate dates for half-day option
-    function validateHalfDayDates() {
-        const leaveCategory = document.getElementById('leave_category');
-        if (leaveCategory.options[leaveCategory.selectedIndex].text === 'Half Days') {
-            const fromDate = new Date(document.getElementById('from_date').value);
-            const toDate = new Date(document.getElementById('to_date').value);
-            if (fromDate.toDateString() !== toDate.toDateString()) {
-                alert('For half-day option, please select the same dates for "From Date" and "To Date".');
-                return false;
-            }
-        }
-        return true;
+    const halfDayOptions = document.getElementById('half_day_options');
+    if (this.options[this.selectedIndex].text === 'Half Days') { // Check by option text
+      halfDayOptions.style.display = 'flex';
+    } else {
+      halfDayOptions.style.display = 'none';
     }
+    validateHalfDayDates(); // Validate dates on change
+  });
+
+  // Validate dates for half-day option
+  function validateHalfDayDates() {
+    const leaveCategory = document.getElementById('leave_category');
+    if (leaveCategory.options[leaveCategory.selectedIndex].text === 'Half Days') {
+      const fromDate = new Date(document.getElementById('from_date').value);
+      const toDate = new Date(document.getElementById('to_date').value);
+      if (fromDate.toDateString() !== toDate.toDateString()) {
+        alert('For half-day option, please select the same dates for "From Date" and "To Date".');
+        return false;
+      }
+    }
+    return true;
+  }
 
   // Listen for change events on date inputs
   // document.getElementById('from_date').addEventListener('change', validateHalfDayDates);

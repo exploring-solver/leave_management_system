@@ -19,7 +19,7 @@ class DepartmentForm(forms.ModelForm):
 class LeaveCategoryForm(forms.ModelForm):
     class Meta:
         model = LeaveCategories
-        fields = ['leave_type']
+        fields = ['leave_type', 'default_leaves']
         
 class EmployeeLeavesForm(forms.ModelForm):
     class Meta:

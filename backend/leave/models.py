@@ -6,6 +6,7 @@ class LeaveCategories(models.Model):
     
     leave_type = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
+    default_leaves = models.CharField(max_length=50, blank=True, null= True)
     
     class Meta:
         db_table = "leave_categories"

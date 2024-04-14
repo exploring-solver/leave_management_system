@@ -43,32 +43,38 @@
 
 <style>
     .notification {
-      position: relative;
-      padding: 1em;
-      margin: 1em;
-      border-radius: 0.25rem;
+        position: relative;
+        padding: 1em;
+        margin: 1em;
+        border-radius: 0.25rem;
     }
-  
+
     .notification.success {
-      color: #155724; /* Green color for success messages */
-      background-color: #d4edda; /* Light green background color for success messages */
-      border: 1px solid #c3e6cb; /* Border color for success messages */
+        color: #155724;
+        /* Green color for success messages */
+        background-color: #d4edda;
+        /* Light green background color for success messages */
+        border: 1px solid #c3e6cb;
+        /* Border color for success messages */
     }
-  
+
     .notification.info {
-      color: #721c24; /* Red color for info messages */
-      background-color: #f8d7da; /* Light red background color for info messages */
-      border: 1px solid #f5c6cb; /* Border color for info messages */
+        color: #721c24;
+        /* Red color for info messages */
+        background-color: #f8d7da;
+        /* Light red background color for info messages */
+        border: 1px solid #f5c6cb;
+        /* Border color for info messages */
     }
-  
+
     .notification .close {
-      position: absolute;
-      right: 0.5em;
-      top: 0.5em;
-      cursor: pointer;
+        position: absolute;
+        right: 0.5em;
+        top: 0.5em;
+        cursor: pointer;
     }
-  </style>
-  
+</style>
+
 
 <body class="">
 
@@ -130,8 +136,8 @@
     {% if user.is_authenticated and user.role == "ADMIN" %}
     <div class="  sm:flex justify-between ">
         <nav id="sidebar"
-            class=" hidden flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700 shadow-xl sm:top-20 sticky bg-white z-40">
-            <div role="button"  onclick="showContent('home')" data-ripple-light="true"
+            class=" hidden flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700 shadow-xl  sm:top-20 fixed sm:sticky bg-white z-40">
+            <div role="button" onclick="showContent('home')" data-ripple-light="true"
                 class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                 <div class="grid mr-4 place-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
@@ -143,7 +149,7 @@
                 </div>
                 Dashboard
             </div>
-            <div role="button"  onclick="showContent('user_manage')" data-ripple-light="true"
+            <div role="button" onclick="showContent('user_manage')" data-ripple-light="true"
                 class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                 <div class="grid mr-4 place-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
@@ -155,7 +161,7 @@
                 </div>
                 User Management
             </div>
-            <div role="button"  onclick="showContent('user')" data-ripple-light="true"
+            <div role="button" onclick="showContent('user')" data-ripple-light="true"
                 class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                 <div class="grid mr-4 place-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
@@ -167,7 +173,7 @@
                 </div>
                 Create User
             </div>
-            <div role="button"  onclick="showContent('depts')" data-ripple-light="true"
+            <div role="button" onclick="showContent('depts')" data-ripple-light="true"
                 class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                 <div class="grid mr-4 place-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
@@ -180,7 +186,7 @@
                 Manage Departments
             </div>
             <div class="relative block w-full">
-                <div role="button" 
+                <div role="button"
                     class="flex items-center w-full p-0 leading-tight transition-a ll rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gra700900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                     <button type="button"
                         class="flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-blue-gray-700 hover:text-blue-gray-900">
@@ -203,7 +209,7 @@
                         class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700">
                         <nav
                             class="flex min-w-[240px] flex-col gap-1 p-0 font-sans text-base font-normal text-blue-gray-700">
-                            <div role="button"  onclick="showContent('pending')" data-ripple-light="true"
+                            <div role="button" onclick="showContent('pending')" data-ripple-light="true"
                                 class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -214,7 +220,7 @@
                                 </div>
                                 Pending Leaves
                             </div>
-                            <div role="button"  onclick="showContent('disapproved')" data-ripple-light="true"
+                            <div role="button" onclick="showContent('disapproved')" data-ripple-light="true"
                                 class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -225,7 +231,7 @@
                                 </div>
                                 Disapproved Leaves
                             </div>
-                            <div role="button"  onclick="showContent('approved')" data-ripple-light="true"
+                            <div role="button" onclick="showContent('approved')" data-ripple-light="true"
                                 class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -236,7 +242,7 @@
                                 </div>
                                 Approved Leaves
                             </div>
-                            <div role="button"  onclick="showContent('empleaves')" data-ripple-light="true"
+                            <div role="button" onclick="showContent('empleaves')" data-ripple-light="true"
                                 class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -247,7 +253,7 @@
                                 </div>
                                 Employee Leaves
                             </div>
-                            <div role="button"  onclick="showContent('leavecat')" data-ripple-light="true"
+                            <div role="button" onclick="showContent('leavecat')" data-ripple-light="true"
                                 class="flex  items-center w-full p-3 leading-tight  transition-all rounded-lg outline-none text-start hover:bg-blue-gra7-500 hover:bg-opacity-80 hover:text-blue-gray-7000 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <div class="grid mr-4 place-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -263,7 +269,7 @@
                 </div>
             </div>
             <a href="/logout/" data-ripple-light="true">
-                <div role="button"  data-ripple-light="true"
+                <div role="button" data-ripple-light="true"
                     class="flex items-center w-full p-3 leading-tight  transition-a ll rounded-lg outline-none text-start hover:bg-blue-gray-700 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-700 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                     <div class="grid mr-4 place-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -319,8 +325,9 @@
             <div class=" bg-white rounded shadow p-6 overflow-x-auto">
                 <h2 class="text-xl mb-4 uppercase">Latest Leave Applications</h2>
                 <hr class="bg-black py-[1px] w-[90%] mb-5">
-
-                <table class="w-full table">
+                <input type="text" required id="searchInput" placeholder="Search for user..."
+            class="w-full px-3 py-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300">
+                <table id= "latestTable" class="w-full table">
                     <thead>
                         <tr class="text-blue-900">
                             <th class="text-start px-4">User</th>
@@ -340,9 +347,9 @@
                             <td class="  px-4 py-2 font-medium text-blue-600">{{ application.user }}</td>
                             <td class="px-4 py-2">
                                 {% if application.leave_category.leave_type == 'Half Days' %}
-                                    {{ application.leave_category.leave_type }} ({{ application.which_half }})
+                                {{ application.leave_category.leave_type }} ({{ application.which_half }})
                                 {% else %}
-                                    {{ application.leave_category.leave_type }}
+                                {{ application.leave_category.leave_type }}
                                 {% endif %}
                             </td>
                             <td class="px-4 py-2">{{ application.from_date }}</td>
@@ -409,7 +416,7 @@
         <div id="user_manage"
             class="content hidden rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5 h-full overflow-x-auto">
             <h2 class="text-xl mb-4 font-semibold uppercase">Employees info</h2>
-            <input type="text" id="userFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
+            <input type="text" required id="userFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
                 placeholder="Filter by Name or Email" />
             <table class="w-full">
                 <thead>
@@ -463,14 +470,14 @@
         </div>
 
         <!-- Create New User Section -->
-        <div id="user" class="content hidden mb-4 bg-white rounded-xl shadow-xl px-6 py-2 sm:w-1/2 start-0">
-            <h2 class="text-xl mb-4 border-b-2 w-fit pb-4 border-black uppercase">employee Info</h2>
+        <div id="user" class="content hidden mb-4 bg-white rounded-xl shadow-xl px-6 py-2 sm:w-1/2 start-0 mx-auto">
+            <h2 class="text-xl mb-4 border-b-2 w-fit pb-4 border-black uppercase">Add Employee</h2>
             <form method="post" action="/create-user/" class="space-y-4">
                 {% csrf_token %}
                 <div class="flex gap-10 flex-wrap">
 
                     <div class="relative h-11 min-w-[200px]">
-                        <input type="text" id="name" name="name"
+                        <input type="text" required id="name" name="name"
                             class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                         <label for="name"
                             class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
@@ -478,7 +485,7 @@
                         </label>
                     </div>
                     <div class="relative h-11 min-w-[200px]">
-                        <input type="email" id="email" name="email"
+                        <input type="email" required id="email" name="email"
                             class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                         <label for="email"
                             class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
@@ -489,7 +496,7 @@
                 </div>
                 <div class="flex gap-10 flex-wrap">
                     <div class="relative h-11 min-w-[200px]">
-                        <input type="password" id="password" name="password"
+                        <input required type="password" id="password" name="password"
                             class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                         <label for="password"
                             class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
@@ -499,7 +506,7 @@
                     <div class="relative h-10 w-72 min-w-[200px]">
                         <!-- <label for="role" class="block">Role:</label> -->
                         <select id="role" name="role"
-                            class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                            class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" required>
                             <option value="">-Select Role-</option>
                             {% for role in user.Role.choices %}
                             <option value="{{ role.0 }}">{{ role.1 }}</option>
@@ -514,7 +521,7 @@
                 <br>
                 <div class="relative h-11 min-w-[200px]">
                     <!-- <label for="gender" class="block">Gender:</label> -->
-                    <select id="gender" name="gender"
+                    <select id="gender" required name="gender"
                         class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
                         <option value="">-Select Gender-</option>
                         {% for gender in user.Gender.choices %}
@@ -528,7 +535,7 @@
                 </div>
                 <br>
                 <div class="relative h-11 min-w-[200px]">
-                    <input type="text" id="emp_code" name="emp_code"
+                    <input type="text" required id="emp_code" name="emp_code"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                     <label for="emp_code"
                         class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
@@ -538,8 +545,8 @@
                 <br>
                 <div class="relative h-11 min-w-[200px]">
                     <!-- <label for="dept" class="block">Department:</label> -->
-                    <select id="dept" name="dept"
-                            class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                    <select id="dept" required  name="dept"
+                        class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
                         <option value="">-Select Department-</option>
                         {% for department in departments %}
                         <option value="{{ department }}">{{ department.department }}</option>
@@ -553,7 +560,7 @@
                 </div>
                 <br>
                 <div class="relative h-11 min-w-[200px]">
-                    <input type="text" id="address" name="address"
+                    <input type="text" required id="address" name="address"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                     <label for="address"
                         class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
@@ -561,7 +568,7 @@
                     </label>
                 </div>
                 <div class="relative h-11 min-w-[200px]">
-                    <input type="text" id="city" name="city"
+                    <input type="text" required id="city" name="city"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                     <label for="city"
                         class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
@@ -569,7 +576,7 @@
                     </label>
                 </div>
                 <div class="relative h-11 min-w-[200px]">
-                    <input type="text" id="country" name="country"
+                    <input type="text" required id="country" name="country"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                     <label for="country"
                         class="block after:content[''] pointer-events-none absolute
@@ -579,7 +586,7 @@
 
                 </div>
                 <div class="relative h-11 min-w-[200px]">
-                    <input type="text" id="mobile_number" name="mobile_number"
+                    <input type="text" required id="mobile_number" name="mobile_number"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                     <label for="mobile_number"
                         class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
@@ -589,7 +596,7 @@
                 <div class="relative h-11 min-w-[200px]">
 
                     <label for="date_of_joining" class="block">Date of Joining:</label>
-                    <input type="date" id="date_of_joining" name="date_of_joining"
+                    <input required type="date" id="date_of_joining" name="date_of_joining"
                         class="block w-full  rounded-md px-3 py-2 mb-2" /><br />
                 </div>
                 <br><br>
@@ -601,13 +608,13 @@
         </div>
 
         <!-- Add Department Section -->
-        <div id="depts" class="hidden content">
-            <div id="add-department" class="mb-4 bg-white rounded-xl shadow-xl px-6 py-2 sm:w-1/2 start-0">
+        <div id="depts" class="hidden content w-full">
+            <div id="add-department" class="mb-4 bg-white rounded-xl shadow-xl px-6 py-2 ">
                 <h2 class="text-xl mb-4 border-b-2 w-fit pb-4 border-black uppercase">Add Department</h2>
-                <form method="POST" action="/add_department/" class="space-y-4">
+                <form method="POST" action="/add_department/" class="space-y-4 sm:w-1/2">
                     {% csrf_token %}
                     <div class="relative h-11 min-w-[200px]">
-                        <input type="text" id="department" name="department"
+                        <input type="text" required id="department" name="department"
                             class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                         <label for="department"
                             class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
@@ -623,7 +630,7 @@
             </div>
 
             <!-- Listed Departments Section -->
-            <div id="listed-departments" class=" mb-4 bg-white rounded-xl shadow-xl px-6 py-2 sm:w-1/2 start-0">
+            <div id="listed-departments" class=" mb-4 bg-white rounded-xl shadow-xl px-6 py-2 ">
                 <h2 class="text-xl mb-4 border-b-2 w-fit pb-4 border-black uppercase">Listed Departments</h2>
                 <ul>
                     {% for department in departments %}
@@ -638,10 +645,11 @@
         <br>
         <!-- Pending Leaves  -->
         <div id="pending" class="content hidden bg-white rounded shadow p-6 overflow-x-auto">
-            <h2 class="text-xl mb-4 uppercase">Latest Leave Applications</h2>
+            <h2 class="text-xl mb-4 uppercase">Pending Applications</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
-
-            <table class="w-full">
+            <input type="text" required id="searchInputPend" placeholder="Search for user..."
+            class="w-full px-3 py-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300">
+            <table class="w-full" id="pend-table">
                 <thead>
                     <tr class="text-blue-900">
                         <th class="text-start px-4">User</th>
@@ -660,9 +668,9 @@
                         <td class="  px-4 py-2 font-medium text-blue-600">{{ application.user }}</td>
                         <td class="px-4 py-2">
                             {% if application.leave_category.leave_type == 'Half Days' %}
-                                {{ application.leave_category.leave_type }} ({{ application.which_half }})
+                            {{ application.leave_category.leave_type }} ({{ application.which_half }})
                             {% else %}
-                                {{ application.leave_category.leave_type }}
+                            {{ application.leave_category.leave_type }}
                             {% endif %}
                         </td>
                         <td class="  px-4 py-2">{{ application.from_date }}
@@ -730,8 +738,9 @@
         <div id="approved" class=" hidden content bg-white rounded shadow p-6 overflow-x-auto sm:w-full">
             <h2 class="text-xl text-gray-600 font-semibold mb-4">Approved Leave Applications</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
-
-            <table class="w-full table">
+            <input type="text" required id="searchInputApp" placeholder="Search for user..."
+            class="w-full px-3 py-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300">
+            <table class="w-full table" id="app-table">
                 <thead>
                     <tr class="text-blue-900">
                         <th class="text-start px-4">User</th>
@@ -749,9 +758,9 @@
                         </td>
                         <td class="px-4 py-2">
                             {% if application.leave_category.leave_type == 'Half Days' %}
-                                {{ application.leave_category.leave_type }} ({{ application.which_half }})
+                            {{ application.leave_category.leave_type }} ({{ application.which_half }})
                             {% else %}
-                                {{ application.leave_category.leave_type }}
+                            {{ application.leave_category.leave_type }}
                             {% endif %}
                         </td>
                         <td class="  px-4 py-2">{{ application.from_date }}</td>
@@ -769,8 +778,9 @@
         <div id="disapproved" class="content hidden bg-white rounded shadow p-6 overflow-x-auto sm:w-full">
             <h2 class="text-xl mb-4">Disapproved Leave Applications</h2>
             <hr class="bg-gray-600 py-[1px] w-[90%] mb-5">
-
-            <table class="w-full table">
+            <input type="text" required id="searchInputDisapp" placeholder="Search for user..."
+            class="w-full px-3 py-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300">
+            <table class="w-full table" id="setupTableDisappSearch">
                 <thead>
                     <tr class="text-blue-900">
                         <th class="font-bold text-start px-4">User</th>
@@ -788,9 +798,9 @@
                         </td>
                         <td class="px-4 py-2">
                             {% if application.leave_category.leave_type == 'Half Days' %}
-                                {{ application.leave_category.leave_type }} ({{ application.which_half }})
+                            {{ application.leave_category.leave_type }} ({{ application.which_half }})
                             {% else %}
-                                {{ application.leave_category.leave_type }}
+                            {{ application.leave_category.leave_type }}
                             {% endif %}
                         </td>
                         <td class="  px-4 py-2">{{ application.from_date }}</td>
@@ -805,10 +815,10 @@
         </div>
         <br>
         <!-- Employee Leaves Section -->
-        <div id="empleaves" data-ripple-light="true" class="content hidden rounded shadow p-6 overflow-x-auto sm:w-2/3">
+        <div id="empleaves" class="content hidden rounded shadow p-6 overflow-x-auto sm:w-2/3">
             <h2 class="text-xl mb-4">Employee Leaves</h2>
             <hr class="bg-black py-[1px] w-[90%] mb-5">
-            <input type="text" id="employeeLeaveFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
+            <input type="text" required id="employeeLeaveFilter" class="border-gray-300 border w-full px-3 py-2 rounded mb-4"
                 placeholder="Filter by User or Leave Category" />
             <table class="w-full table">
                 <thead>
@@ -831,7 +841,7 @@
                             <td class="px-4 py-2">
                                 <input type="hidden" name="user_id" value="{{ leaves.user.id }}">
                                 <input type="hidden" name="leave_category_id" value="{{ leaves.leave_category.id }}">
-                                <input type="number" name="leaves_remaining" value="{{ leaves.leaves_remaining }}"
+                                <input type="number" step="0.01" min="0" name="leaves_remaining" value="{{ leaves.leaves_remaining }}"
                                     class="border-gray-300 border w-full px-3 py-2 rounded" />
                             </td>
                             <td>
@@ -845,7 +855,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div>        
+        </div>
         <br>
         <!-- Leave Categories Section -->
         <div class="bg-white rounded shadow p-6 hidden content overflow-x-auto sm:w-full" id="leavecat">
@@ -869,12 +879,12 @@
                 </tbody>
             </table>
             <!-- Add Leave Type Section -->
-            <div id="add-leave-type" class="mb-4 bg-white rounded-xl shadow-xl px-6 py-2 sm:w-1/2 start-0">
+            <div id="add-leave-type" class="mb-4 bg-white rounded-xl shadow-xl px-6 py-2 m-auto sm:w-1/2 start-0">
                 <h2 class="text-xl mb-4 border-b-2 w-fit pb-4 border-black uppercase">Add Leave Type</h2>
                 <form method="POST" action="/add_leave_type/" class="space-y-4">
                     {% csrf_token %}
                     <div class="relative h-11 min-w-[200px]">
-                        <input type="text" id="leave_type" name="leave_type"
+                        <input type="text" required id="leave_type" name="leave_type"
                             class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                         <label for="leave_type"
                             class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
@@ -888,8 +898,10 @@
                             class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-700 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-cyan-700 peer-focus:after:scale-x-100 peer-focus:after:border-cyan-700 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                             Default Leaves:
                         </label>
-                        <small class="text-red-600">Note: The default value of leaves will be allotted to all existing employees.</small>
+                        <small class="text-red-600">Note: The default value of leaves will be allotted to all existing
+                            employees.</small>
                     </div>
+                    <br>
                     <br>
                     <button type="submit" data-ripple-light="true"
                         class="w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-semibold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
@@ -988,6 +1000,93 @@
                 }
             }
         }
+
+        // searching in the table
+        function setupTableSearch(tableId) {
+            const searchInput = document.getElementById('searchInput');
+            const table = document.getElementById(tableId).getElementsByTagName('tr');
+
+            searchInput.addEventListener('input', function () {
+                const searchValue = this.value.toLowerCase();
+                for (let i = 0; i < table.length; i++) {
+                    const cell = table[i].getElementsByTagName('td')[0];
+                    if (cell) {
+                        const cellText = cell.textContent.toLowerCase();
+                        if (cellText.includes(searchValue)) {
+                            table[i].style.display = '';
+                        } else {
+                            table[i].style.display = 'none';
+                        }
+                    }
+                }
+            });
+        }
+        // searching in the table
+        function setupTablePendingSearch(tableId) {
+            const searchInput = document.getElementById('searchInputPend');
+            const table = document.getElementById(tableId).getElementsByTagName('tr');
+
+            searchInput.addEventListener('input', function () {
+                const searchValue = this.value.toLowerCase();
+                for (let i = 0; i < table.length; i++) {
+                    const cell = table[i].getElementsByTagName('td')[0];
+                    if (cell) {
+                        const cellText = cell.textContent.toLowerCase();
+                        if (cellText.includes(searchValue)) {
+                            table[i].style.display = '';
+                        } else {
+                            table[i].style.display = 'none';
+                        }
+                    }
+                }
+            });
+        }
+        // searching in the table
+        function setupTableDisappSearch(tableId) {
+            const searchInput = document.getElementById('searchInputDisapp');
+            const table = document.getElementById(tableId).getElementsByTagName('tr');
+
+            searchInput.addEventListener('input', function () {
+                const searchValue = this.value.toLowerCase();
+                for (let i = 0; i < table.length; i++) {
+                    const cell = table[i].getElementsByTagName('td')[0];
+                    if (cell) {
+                        const cellText = cell.textContent.toLowerCase();
+                        if (cellText.includes(searchValue)) {
+                            table[i].style.display = '';
+                        } else {
+                            table[i].style.display = 'none';
+                        }
+                    }
+                }
+            });
+        }
+        function setupTableAppSearch(tableId) {
+            const searchInput = document.getElementById('searchInputApp');
+            const table = document.getElementById(tableId).getElementsByTagName('tr');
+
+            searchInput.addEventListener('input', function () {
+                const searchValue = this.value.toLowerCase();
+                for (let i = 0; i < table.length; i++) {
+                    const cell = table[i].getElementsByTagName('td')[0];
+                    if (cell) {
+                        const cellText = cell.textContent.toLowerCase();
+                        if (cellText.includes(searchValue)) {
+                            table[i].style.display = '';
+                        } else {
+                            table[i].style.display = 'none';
+                        }
+                    }
+                }
+            });
+        }
+
+        // Call the setupTableSearch function with the ID of the table you want to apply the search to
+        {% comment %} setupTableSearch('leaveTable'); {% endcomment %}
+        setupTableSearch('latestTable');
+        setupTablePendingSearch('pend-table');
+        setupTableDisappSearch('disapp-table');
+        setupTableAppSearch('app-table');
     </script>
 </body>
 

@@ -473,7 +473,17 @@ def create_user(request):
                         leaves_remaining = 10
 
             # Create employee leaves record
+            
             EmployeeLeaves.objects.create(emp_name=user.name, user=user, leave_category=category, leaves_remaining=leaves_remaining)
+        
+        # Get leave categories with default values
+        leave_categories_with_defaults = LeaveCategories.objects.exclude(default_leaves=None)
+        
+        # If there are any leave categories with default values
+        if leave_categories_with_defaults.exists():
+            # Allot default leaves to the newly created user
+            for category in leave_categories_with_defaults:
+                EmployeeLeaves.objects.create(emp_name=user.name, user=user, leave_category=category, leaves_remaining=category.default_leaves)
         messages.success(request, f'User {name} created successfully.')
         return redirect('admin_dashboard')
 
@@ -525,20 +535,6 @@ def disapprove_leave(request, application_id):
     leave_application.past = True
     leave_application.admin_remark = request.POST.get('admin_remark', '')
     leave_application.save()
-
-    # Add the applied leaves back to the leaves remaining
-    applied_leaves = (leave_application.to_date - leave_application.from_date).days + 1
-    leave_category = leave_application.leave_category
-    user_leave_category = EmployeeLeaves.objects.get(user=leave_application.user, leave_category=leave_category)
-    user_leave_category.leaves_remaining += applied_leaves
-    user_leave_category.save()
-
-    # If the leave category is Half Days, add 0.5 leaves back to Casual Leave category
-    if leave_application.which_half is not None:
-        casual_leave_category = LeaveCategories.objects.get(leave_type='Casual Leave')
-        casual_leave = EmployeeLeaves.objects.get(user=leave_application.user, leave_category=casual_leave_category)
-        casual_leave.leaves_remaining += Decimal(0.5)
-        casual_leave.save()
 
     messages.info(request, 'Leave Application Disapproved Successfully')
     return redirect('admin_dashboard')
@@ -607,7 +603,7 @@ def edit_employee_leave(request):
 
         # Update or create EmployeeLeaves object
         employee_leaves = EmployeeLeaves.objects.get(user=user, leave_category=leave_category)
-        employee_leaves.leaves_remaining = int(leaves_remaining)
+        employee_leaves.leaves_remaining = leaves_remaining
         employee_leaves.save()
         
         messages.success(request, 'Leaves Modified Successfully')
